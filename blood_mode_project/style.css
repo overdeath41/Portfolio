@@ -1,0 +1,628 @@
+/* ========================
+   CSS VARIABLES — THÈME DÉFAUT (Vert Matrix)
+======================== */
+:root {
+  --color-bg: #000;
+  --color-primary: #00ff6a;
+  --color-text: #e5ffe5;
+  --color-text-light: #c8ffc8;
+  --color-shadow: #00ff6a44;
+  --color-shadow-hover: #00ff6a66;
+  --border-width: 2px;
+  --border-radius: 5px;
+  --border-radius-lg: 12px;
+  --transition: 0.3s;
+  --font-mono: monospace, Arial;
+}
+
+/* ========================
+   THÈME SANG (activé via body.theme-blood)
+======================== */
+body.theme-blood {
+  --color-bg: #0a0000;
+  --color-primary: #cc0000;
+  --color-text: #ffe5e5;
+  --color-text-light: #ffb3b3;
+  --color-shadow: #cc000044;
+  --color-shadow-hover: #cc000066;
+}
+
+/* ========================
+   BOUTON DE CHANGEMENT DE THÈME
+======================== */
+.theme-toggle-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  background-color: transparent;
+  color: var(--color-primary);
+  border: var(--border-width) solid var(--color-primary);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  box-shadow: 0 0 10px var(--color-shadow-hover);
+}
+
+/* ========================
+   TEXTE LATIN DÉFILANT (thème sang)
+   Affiché derrière tout le contenu, sur toute la page
+======================== */
+#latin-overlay {
+  display: none; /* masqué par défaut */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* derrière tout le contenu */
+  pointer-events: none; /* ne bloque pas les clics */
+  overflow: hidden;
+}
+
+body.theme-blood #latin-overlay {
+  display: block;
+}
+
+/* Chaque ligne de texte latin */
+.latin-line {
+  position: absolute;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: #6b0000; /* rouge sombre, distinct du texte principal */
+  opacity: 0.25;  /* opacité faible pour lisibilité */
+  animation: scrollLatin linear infinite;
+}
+
+@keyframes scrollLatin {
+  from { transform: translateX(100vw); }
+  to   { transform: translateX(-200%); }
+}
+
+/* ========================
+   IMAGES SUBLIMINALES (thème sang)
+   Apparaissent aléatoirement en arrière-plan
+======================== */
+.subliminal-image {
+  position: fixed;
+  z-index: 1; /* juste au-dessus du texte latin, derrière le contenu */
+  pointer-events: none;
+  opacity: 0;
+  filter: sepia(1) saturate(3) hue-rotate(-10deg); /* teinte rouge */
+  transition: opacity 0.1s ease-in-out;
+  max-width: 300px;
+  max-height: 300px;
+  object-fit: contain;
+  mix-blend-mode: screen; /* fusion avec le fond sombre */
+}
+
+.subliminal-image.visible {
+  opacity: 0.08; /* très faible opacité — subliminal */
+}
+
+/* ========================
+   EFFET COULÉE DE SANG sur les liens de navigation
+======================== */
+
+/* Conteneur relatif nécessaire pour le pseudo-élément */
+.navbar li {
+  position: relative;
+  overflow: hidden;
+}
+
+/* La "coulée" est un pseudo-élément ::after sur le lien */
+.navbar li a {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Goutte de sang qui descend depuis le haut du bouton */
+.navbar li a::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 0;
+  background: var(--color-primary);
+  border-radius: 0 0 50% 50%;
+  opacity: 0;
+  transition: none;
+  z-index: -1;
+}
+
+/* Animation déclenchée via JS en ajoutant .blood-drip */
+.navbar li a.blood-drip::after {
+  animation: bloodDrip 0.8s ease-in forwards;
+}
+
+@keyframes bloodDrip {
+  0%   { top: -10%; height: 0;    opacity: 0.9; width: 5px; }
+  30%  { top: 0%;   height: 60%;  opacity: 0.9; width: 5px; }
+  60%  { top: 10%;  height: 100%; opacity: 0.7; width: 7px; }
+  80%  { top: 50%;  height: 120%; opacity: 0.5; width: 8px; }
+  100% { top: 100%; height: 130%; opacity: 0;   width: 6px; }
+}
+
+/* Flash de couleur sur le lien au clic (thème sang) */
+body.theme-blood .navbar li a.blood-drip {
+  animation: bloodFlash 0.4s ease-out;
+}
+
+@keyframes bloodFlash {
+  0%   { background-color: transparent; color: var(--color-primary); }
+  30%  { background-color: #8b0000;     color: #fff; }
+  100% { background-color: transparent; color: var(--color-primary); }
+}
+
+/* ========================
+   BASE STYLES
+======================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  line-height: 1.6;
+}
+
+main {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+section {
+  margin-bottom: 3rem;
+  scroll-margin-top: 55px;
+}
+
+p {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* ========================
+   HEADER
+======================== */
+header {
+  position: relative;
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  padding: 2rem 1rem;
+  text-align: center;
+  border-bottom: var(--border-width) solid var(--color-primary);
+}
+
+#matrix {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.profile-pic {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 3px solid var(--color-primary);
+  z-index: 2;
+}
+
+header h1,
+header p,
+header .links {
+  position: relative;
+  z-index: 2;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.3rem;
+  color: var(--color-primary);
+}
+
+header p {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--color-text-light);
+}
+
+.links {
+  margin-top: 1rem;
+}
+
+.btn-cv {
+  display: inline-block;
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  border: var(--border-width) solid var(--color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  margin: 0 0.3rem;
+  font-weight: bold;
+  transition: var(--transition);
+}
+
+.btn-cv:hover {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+}
+
+/* ========================
+   NAVIGATION
+======================== */
+.navbar {
+  background-color: var(--color-bg);
+  text-align: center;
+  padding: 0.5rem 0;
+  border-bottom: var(--border-width) solid var(--color-primary);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar ul {
+  list-style: none;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.navbar li a {
+  text-decoration: none;
+  color: var(--color-primary);
+  font-weight: bold;
+  padding: 0.3rem 0.6rem;
+  transition: var(--transition);
+  border-radius: var(--border-radius);
+}
+
+.navbar li a:hover {
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+}
+
+/* ========================
+   SECTIONS
+======================== */
+section h2 {
+  background-color: var(--color-bg);
+  border: var(--border-width) solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+section h3 {
+  color: var(--color-primary);
+  margin: 1.5rem 0 1rem;
+}
+
+section h4 {
+  color: var(--color-text-light);
+  margin: 1rem 0 0.5rem;
+}
+
+section p {
+  margin-bottom: 1rem;
+}
+
+section ul {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+section li {
+  margin-bottom: 0.5rem;
+}
+
+/* ========================
+   MISSION CARDS
+======================== */
+.mission-card {
+  background-color: var(--color-bg);
+  border: var(--border-width) solid var(--color-primary);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.mission-card.project {
+  border-color: var(--color-primary);
+}
+
+.mission-card.secondary {
+  border-color: var(--color-primary);
+  opacity: 0.9;
+}
+
+.mission-period {
+  color: var(--color-text-light);
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.mission-context {
+  color: var(--color-text-light);
+  margin-bottom: 1rem;
+}
+
+.learning-highlight {
+  background-color: rgba(0, 255, 106, 0.05);
+  border-left: 4px solid var(--color-primary);
+  padding: 1rem;
+  margin-top: 1.5rem;
+  border-radius: var(--border-radius);
+}
+
+.mission-card ul {
+  margin-left: 1.5rem;
+}
+
+.mission-card ul ul {
+  margin-top: 0.5rem;
+  margin-left: 2rem;
+}
+
+/* ========================
+   TABLES
+======================== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+}
+
+table th,
+table td {
+  border: 1px solid var(--color-primary);
+  padding: 0.5rem;
+  color: var(--color-text);
+  text-align: left;
+}
+
+table th {
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+/* ========================
+   SOFT SKILLS
+======================== */
+.soft-skills {
+  list-style: none;
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.soft-skills li {
+  display: inline-block;
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  padding: 0.3rem 0.6rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-primary);
+}
+
+/* ========================
+   UTILITIES
+======================== */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.contact-email {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+/* ========================
+   CONTACT SECTION
+======================== */
+#contact {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: var(--color-bg);
+  border-radius: var(--border-radius-lg);
+  border: var(--border-width) solid var(--color-primary);
+  box-shadow: 0 0 15px var(--color-shadow);
+}
+
+#contact h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+#contact p {
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--color-text-light);
+}
+
+#contact a {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+#contact a:hover {
+  text-decoration: underline;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--color-primary);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: var(--font-mono);
+  transition: var(--transition);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 5px var(--color-shadow-hover);
+  outline: none;
+}
+
+.contact-form button {
+  padding: 0.8rem 1rem;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.contact-form button:hover {
+  background-color: #00ff4a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--color-shadow-hover);
+}
+
+/* ========================
+   PEEPO
+======================== */
+
+.peepo {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 3px solid var(--color-primary);
+  z-index: 2;
+}
+
+
+/* ========================
+   FOOTER
+======================== */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--color-bg);
+  border-top: var(--border-width) solid var(--color-primary);
+  color: var(--color-primary);
+  margin-top: 2rem;
+}
+
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+.github-link:hover {
+  opacity: 0.8;
+}
+
+.github-link img {
+  vertical-align: middle;
+}
+
+/* ========================
+   ANIMATIONS
+======================== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========================
+   RESPONSIVE DESIGN
+======================== */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  header p {
+    font-size: 1rem;
+  }
+
+  .navbar ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  #contact {
+    padding: 1.5rem;
+  }
+
+  #contact h2 {
+    font-size: 1.7rem;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  .mission-card {
+    padding: 1rem;
+  }
+
+}

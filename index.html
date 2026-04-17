@@ -13,7 +13,15 @@
 </head>
 
 <body>
+    <!-- Canvas du texte latin défilant — créé par JS en position fixed, z-index 0 -->
+  <!-- Visible uniquement en thème sang -->
+
   <header>
+    <!-- Bouton de changement de thème — haut droite du header -->
+    <button class="theme-toggle-btn" id="themeToggle" aria-label="Changer le thème visuel">
+      🩸 Mode Sang
+    </button>
+
     <canvas id="matrix" aria-hidden="true"></canvas>
     <img src="Photo_Luc_Thumser.png" alt="Luc Thumser" class="profile-pic">
     <h1>Luc Thumser</h1>
@@ -163,7 +171,7 @@
         <li>Python basique https://www.coursera.org/professional-certificates/google-it-automation </li>
         <li>Python expert : https://pythoninstitute.org/ </li>
         <li>CCNA : https://www.cisco.com/c/en/us/training-events/training-certifications/certifications/associate/ccna.html </li>
-        <li> Azure : https://learn.microsoft.com/en-us/certifications/azure-fundamentals/ </li>
+        <li>Azure : https://learn.microsoft.com/en-us/certifications/azure-fundamentals/ </li>
       </ul>
     </section>
 
@@ -211,7 +219,7 @@
       </table>
       </section>
 
-      <section id="soft skills" class="fade-in">
+      <section id="soft-skills" class="fade-in">
         <h3>Soft Skills</h3>
         <ul class="soft-skills">
           <li>Organisation</li>
@@ -256,9 +264,5 @@
   </footer>
 
   <script src="script.js"></script>
-
 </body>
-
 </html>
-
-

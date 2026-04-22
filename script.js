@@ -18,10 +18,9 @@ const CONFIG = {
       "Gott mit uns",
       "Die Wahrheit ist im Blut",
       "Ad majorem Dei gloriam"
-      
     ],
     // Nombre de rangées de texte qui défilent en parallèle
-    rowCount: 20
+    rowCount: 10
   },
   subliminal: {
     // Mets ici le chemin de ton PNG, ex: "skull.png"
@@ -387,10 +386,11 @@ const init = () => {
   updateFooterYear();
 
   // Créer les objets pour le thème sang
-  const latinAnim     = new LatinAnimation();
-  const subliminalImg = new SubliminalImage();
+  // window._subliminalImg exposé pour que DeskTheme puisse le stopper/relancer
+  const latinAnim          = new LatinAnimation();
+  window._subliminalImg    = new SubliminalImage();
 
-  initTheme(latinAnim, subliminalImg);
+  initTheme(latinAnim, window._subliminalImg);
 };
 
 if (document.readyState === 'loading') {
@@ -761,21 +761,23 @@ const DeskTheme = (() => {
   const open = () => {
     inject();
     document.body.classList.add('theme-desk');
-    // Suspendre les effets des autres thèmes visuellement (matrix/latin continuent en mémoire mais sont cachés sous l'overlay)
     localStorage.setItem(STORAGE_KEY, 'desk');
+    // Stopper les images subliminales pendant le mode bureau
+    if (window._subliminalImg) window._subliminalImg.stop();
     const btn = document.getElementById('deskToggle');
     if (btn) btn.textContent = '✕ Fermer Bureau';
-    // Echap pour fermer
     document.addEventListener('keydown', _escClose);
   };
 
   const close = () => {
     document.body.classList.remove('theme-desk');
     deskClosePanel();
-    // Restaurer le thème précédent (matrix ou blood) — on lit ce qui était avant
-    // Si rien de stocké, on remet matrix par défaut
     const prev = localStorage.getItem('portfolio-prev-theme') || 'matrix';
     localStorage.setItem(STORAGE_KEY, prev);
+    // Relancer les subliminales si on revient en thème sang
+    if (prev === 'blood' && window._subliminalImg && CONFIG.subliminal.imageSrc) {
+      window._subliminalImg.start(CONFIG.subliminal.imageSrc);
+    }
     const btn = document.getElementById('deskToggle');
     if (btn) btn.textContent = '🖥️ Mode Bureau';
     document.removeEventListener('keydown', _escClose);

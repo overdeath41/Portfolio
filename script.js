@@ -21,7 +21,7 @@ const CONFIG = {
       
     ],
     // Nombre de rangées de texte qui défilent en parallèle
-    rowCount: 10
+    rowCount: 20
   },
   subliminal: {
     // Mets ici le chemin de ton PNG, ex: "skull.png"

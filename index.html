@@ -9,6 +9,9 @@
   <meta property="og:image" content="Photo_Luc_Thumser.png">
   <meta property="og:type" content="website">
   <title>Luc Thumser - Administrateur Systèmes & Réseaux | Portfolio BTS SIO SISR</title>
+  <!-- Police Syne utilisée par les panels du thème bureau -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -17,10 +20,15 @@
   <!-- Visible uniquement en thème sang -->
 
   <header>
-    <!-- Bouton de changement de thème — haut droite du header -->
-    <button class="theme-toggle-btn" id="themeToggle" aria-label="Changer le thème visuel">
-      🩸 Mode Sang
-    </button>
+    <!-- Groupe de boutons de thème — haut droite du header -->
+    <div class="theme-btn-group">
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Basculer thème sang/matrix">
+        🩸 Mode Sang
+      </button>
+      <button class="theme-toggle-btn" id="deskToggle" aria-label="Ouvrir le bureau interactif">
+        🖥️ Mode Bureau
+      </button>
+    </div>
 
     <canvas id="matrix" aria-hidden="true"></canvas>
     <img src="Photo_Luc_Thumser.png" alt="Luc Thumser" class="profile-pic">
@@ -262,6 +270,11 @@
       Lien vers mon GitHub
     </a>
   </footer>
+
+  <!-- ══ BUREAU INTERACTIF ══ -->
+  <!-- Overlay pleine page activé par le bouton "Mode Bureau" -->
+  <!-- Toute la scène 3D/2.5D est rendue ici, par-dessus le portfolio classique -->
+  <div id="desk-scene" aria-hidden="true"></div>
 
   <script src="script.js"></script>
 </body>

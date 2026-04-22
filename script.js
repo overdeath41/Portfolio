@@ -13,21 +13,12 @@ const CONFIG = {
   },
   latin: {
     phrases: [
-      "Memento mori",
-      "Veni vidi vici",
-      "Alea iacta est",
-      "Carpe diem",
-      "In vino veritas",
-      "Per aspera ad astra",
-      "Dum spiro spero",
-      "Errare humanum est",
-      "Cogito ergo sum",
-      "Tempus fugit",
-      "Sic transit gloria mundi",
-      "Acta non verba",
-      "Si vis pacem para bellum",
-      "Ars longa vita brevis",
-      "Amor vincit omnia"
+      "The bird of Hermes is my name, eating my wings to make me tame",
+      "Vae victis",
+      "Gott mit uns",
+      "Die Wahrheit ist im Blut",
+      "Ad majorem Dei gloriam"
+      
     ],
     // Nombre de rangées de texte qui défilent en parallèle
     rowCount: 10

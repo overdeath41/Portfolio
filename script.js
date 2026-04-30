@@ -364,13 +364,13 @@ const initTheme = (latinAnim, subliminalImg) => {
         subliminalImg.start(CONFIG.subliminal.imageSrc);
       }
       console.log("THEME BLOOD:", isBlood);
-      if (btn) { btn.textContent = '💚'; btn.title = 'Mode Matrix'; }
+      if (btn) { btn.textContent = '💚'; btn.title = 'Revenir Mode Matrix'; }
     } else {
       document.body.classList.remove('theme-blood');
       matrixCanvas.style.display = '';
       latinAnim.stop();
       subliminalImg.stop();
-      if (btn) { btn.textContent = '🩸'; btn.title = 'Mode Sang'; }
+      if (btn) { btn.textContent = '🩸'; btn.title = 'Passer Mode Sang'; }
     }
   };
  
@@ -386,47 +386,6 @@ const initTheme = (latinAnim, subliminalImg) => {
   apply();
 };
 
-// ========================
-// MENU MOBILE HAMBURGER
-// ========================
-const initMobileNav = () => {
-  const toggle = document.getElementById('mobileNavToggle');
-  const menu   = document.getElementById('mobileNavMenu');
-  if (!toggle || !menu) return;
-
-  // Ouvrir / fermer le menu
-  toggle.addEventListener('click', () => {
-    const isOpen = menu.classList.toggle('open');
-    toggle.textContent = isOpen ? '✕ Fermer' : '☰ Menu';
-  });
-
-  // Fermer le menu quand on clique un lien
-  menu.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      menu.classList.remove('open');
-      toggle.textContent = '☰ Menu';
-
-      // Effet sang si actif
-      if (document.body.classList.contains('theme-blood')) {
-        triggerBloodDrip(link);
-      }
-
-      const targetId = link.getAttribute('href').substring(1);
-      const target   = document.getElementById(targetId);
-      if (target) {
-        // Ouvrir la carte cible si elle est fermée
-        const card = target.closest ? target : target;
-        if (card && !card.classList.contains('is-open')) {
-          card.classList.add('is-open');
-          const btn = card.querySelector('.card-header');
-          if (btn) btn.setAttribute('aria-expanded', 'true');
-        }
-        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
-      }
-    });
-  });
-};
 
 // ========================
 // FOOTER YEAR (inchangé)
@@ -445,7 +404,6 @@ const init = () => {
   initCards();
   initFadeInAnimation();
   initSmoothScroll();
-  initMobileNav();
   new MatrixAnimation('matrix');
   updateFooterYear();
 
@@ -829,7 +787,7 @@ const DeskTheme = (() => {
     // Stopper les images subliminales pendant le mode bureau
     if (window._subliminalImg) window._subliminalImg.stop();
     const btn = document.getElementById('deskToggle');
-    if (btn) { btn.textContent = '✕'; btn.title = 'Fermer Bureau'; }
+    if (btn) { btn.textContent = '✕'; btn.title = 'Fermer Mode Bureau'; }
     document.addEventListener('keydown', _escClose);
   };
 
@@ -843,7 +801,7 @@ const DeskTheme = (() => {
       window._subliminalImg.start(CONFIG.subliminal.imageSrc);
     }
     const btn = document.getElementById('deskToggle');
-    if (btn) { btn.textContent = '🖥️'; btn.title = 'Mode Bureau'; }
+    if (btn) { btn.textContent = '🖥️'; btn.title = 'Mode Bureau Interactif'; }
     document.removeEventListener('keydown', _escClose);
   };
 

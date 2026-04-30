@@ -13,21 +13,11 @@ const CONFIG = {
   },
   latin: {
     phrases: [
-      "Memento mori",
-      "Veni vidi vici",
-      "Alea iacta est",
-      "Carpe diem",
-      "In vino veritas",
-      "Per aspera ad astra",
-      "Dum spiro spero",
-      "Errare humanum est",
-      "Cogito ergo sum",
-      "Tempus fugit",
-      "Sic transit gloria mundi",
-      "Acta non verba",
-      "Si vis pacem para bellum",
-      "Ars longa vita brevis",
-      "Amor vincit omnia"
+      "The bird of Hermes is my name, eating my wings to make me tame",
+      "Vae victis",
+      "Gott mit uns",
+      "Die Wahrheit ist im Blut",
+      "Ad majorem Dei gloriam"
     ],
     // Nombre de rangées de texte qui défilent en parallèle
     rowCount: 10
@@ -42,33 +32,23 @@ const CONFIG = {
 };
 
 // ========================
-// CARTES DÉPLIABLES
-// Chaque .card contient un .card-header (bouton) et un .card-body.
-// Un clic bascule la classe .is-open sur la carte.
-// ========================
-const initCards = () => {
-  document.querySelectorAll('.card-header').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const card = btn.closest('.card');
-      const isOpen = card.classList.toggle('is-open');
-      btn.setAttribute('aria-expanded', isOpen);
-    });
-  });
-};
-
-// ========================
-// FADE-IN AU SCROLL (les cartes apparaissent en scrollant)
+// FADE-IN ANIMATION (inchangé)
 // ========================
 const initFadeInAnimation = () => {
+  const sections = document.querySelectorAll('.fade-in');
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
       });
     },
     { threshold: CONFIG.animation.threshold }
   );
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  sections.forEach(section => observer.observe(section));
 };
 
 // ========================
@@ -346,71 +326,45 @@ class SubliminalImage {
 }
 
 // ========================
-// GESTIONNAIRE DE THÈME — cycling Matrix → Sang → Bureau → Matrix
-// Un seul bouton #themeToggle fait défiler les 3 thèmes.
+// GESTIONNAIRE DE THÈME
 // ========================
-const THEMES   = ['matrix', 'blood', 'desk'];
-const STORAGE_KEY_T = 'portfolio-theme';
-
-// Émojis affichés sur le bouton selon le thème SUIVANT (ce vers quoi on va)
-const THEME_NEXT_EMOJI = {
-  matrix: '🩸',   // on est en matrix → prochain = sang
-  blood:  '🖥️',   // on est en sang   → prochain = bureau
-  desk:   '💚'    // on est en bureau  → prochain = matrix
-};
-const THEME_TITLE = {
-  matrix: 'Passer en Mode Sang',
-  blood:  'Passer en Mode Bureau',
-  desk:   'Revenir Mode Matrix'
-};
-
-let _currentTheme = localStorage.getItem(STORAGE_KEY_T) || 'matrix';
-// Si 'desk' était sauvegardé, repartir de matrix au chargement
-if (_currentTheme === 'desk') _currentTheme = 'matrix';
-
 const initTheme = (latinAnim, subliminalImg) => {
-  const btn         = document.getElementById('themeToggle');
+  const STORAGE_KEY = 'portfolio-theme';
+  const btn = document.getElementById('themeToggle');
+  let isBlood = localStorage.getItem(STORAGE_KEY) === 'blood' || false;
   const matrixCanvas = document.getElementById('matrix');
-
-  const applyTheme = (theme) => {
-    // Reset tous les états
-    document.body.classList.remove('theme-blood', 'theme-desk');
-    matrixCanvas.style.display = '';
-    latinAnim.stop();
-    subliminalImg.stop();
-
-    if (theme === 'blood') {
+ 
+  const apply = () => {
+    if (isBlood) {
       document.body.classList.add('theme-blood');
       matrixCanvas.style.display = 'none';
       latinAnim.start();
-      if (CONFIG.subliminal.imageSrc) subliminalImg.start(CONFIG.subliminal.imageSrc);
-    } else if (theme === 'desk') {
-      DeskTheme.openScene(matrixCanvas, latinAnim, subliminalImg);
+      // Démarrer l'image subliminale seulement si une source est définie
+      if (CONFIG.subliminal.imageSrc) {
+        subliminalImg.start(CONFIG.subliminal.imageSrc);
+      }
+      console.log("THEME BLOOD:", isBlood);
+      if (btn) btn.textContent = '💚 Mode Matrix';
+    } else {
+      document.body.classList.remove('theme-blood');
+      matrixCanvas.style.display = '';
+      latinAnim.stop();
+      subliminalImg.stop();
+      if (btn) btn.textContent = '🩸 Mode Sang';
     }
-    // Mettre à jour le bouton pour indiquer le thème SUIVANT
-    if (btn) {
-      btn.textContent = THEME_NEXT_EMOJI[theme];
-      btn.title       = THEME_TITLE[theme];
-    }
-    _currentTheme = theme;
-    localStorage.setItem(STORAGE_KEY_T, theme);
   };
-
+ 
   if (btn) {
     btn.addEventListener('click', () => {
-      const idx  = THEMES.indexOf(_currentTheme);
-      const next = THEMES[(idx + 1) % THEMES.length];
-      applyTheme(next);
+      isBlood = !isBlood;
+      localStorage.setItem(STORAGE_KEY, isBlood ? 'blood' : 'matrix');
+      apply();
     });
   }
-
-  // Appliquer le thème initial
-  applyTheme(_currentTheme);
-
-  // Exposer pour DeskTheme
-  window._applyTheme = applyTheme;
+ 
+  // Appliquer l'état initial
+  apply();
 };
-
 
 // ========================
 // FOOTER YEAR (inchangé)
@@ -426,7 +380,6 @@ const updateFooterYear = () => {
 // INITIALISATION
 // ========================
 const init = () => {
-  initCards();
   initFadeInAnimation();
   initSmoothScroll();
   new MatrixAnimation('matrix');
@@ -793,8 +746,9 @@ function deskSubmitContact() {
   setTimeout(() => { btn.textContent = 'Envoyer le message'; btn.style.background = ''; }, 3000);
 }
 
-// ── Gestionnaire du thème bureau (intégré au cycling) ──
+// ── Gestionnaire du thème bureau ──
 const DeskTheme = (() => {
+  const STORAGE_KEY = 'portfolio-theme';
   let injected = false;
 
   const inject = () => {
@@ -804,41 +758,57 @@ const DeskTheme = (() => {
     injected = true;
   };
 
-  // Appelé par initTheme quand le thème 'desk' est sélectionné
-  const openScene = (matrixCanvas, latinAnim, subliminalImg) => {
+  const open = () => {
     inject();
     document.body.classList.add('theme-desk');
-    if (matrixCanvas) matrixCanvas.style.display = 'none';
-    latinAnim.stop();
-    subliminalImg.stop();
+    localStorage.setItem(STORAGE_KEY, 'desk');
+    // Stopper les images subliminales pendant le mode bureau
+    if (window._subliminalImg) window._subliminalImg.stop();
+    const btn = document.getElementById('deskToggle');
+    if (btn) btn.textContent = '✕ Fermer Bureau';
     document.addEventListener('keydown', _escClose);
   };
 
-  // Retour au thème matrix via le bouton "← Retour" dans la scène
   const close = () => {
+    document.body.classList.remove('theme-desk');
     deskClosePanel();
+    const prev = localStorage.getItem('portfolio-prev-theme') || 'matrix';
+    localStorage.setItem(STORAGE_KEY, prev);
+    // Relancer les subliminales si on revient en thème sang
+    if (prev === 'blood' && window._subliminalImg && CONFIG.subliminal.imageSrc) {
+      window._subliminalImg.start(CONFIG.subliminal.imageSrc);
+    }
+    const btn = document.getElementById('deskToggle');
+    if (btn) btn.textContent = '🖥️ Mode Bureau';
     document.removeEventListener('keydown', _escClose);
-    // Déclencher le cycling vers matrix via _applyTheme
-    if (window._applyTheme) window._applyTheme('matrix');
   };
 
-  const _escClose = (e) => {
-    if (e.key === 'Escape') {
-      const overlay = document.getElementById('ds-panel-overlay');
-      if (overlay && overlay.classList.contains('active')) {
-        deskClosePanel();
-      } else {
-        close();
-      }
+  const toggle = () => {
+    if (document.body.classList.contains('theme-desk')) {
+      close();
+    } else {
+      // Sauvegarder le thème actuel avant d'ouvrir le bureau
+      const cur = localStorage.getItem(STORAGE_KEY);
+      if (cur !== 'desk') localStorage.setItem('portfolio-prev-theme', cur || 'matrix');
+      open();
     }
   };
 
-  // init vide — le cycling gère tout
-  const init = () => {};
+  const _escClose = (e) => { if (e.key === 'Escape') { deskClosePanel() || close(); } };
 
-  return { init, openScene, close };
+  const init = () => {
+    const btn = document.getElementById('deskToggle');
+    if (btn) btn.addEventListener('click', toggle);
+    // Si la page se charge avec le thème bureau sauvegardé, l'activer
+    if (localStorage.getItem(STORAGE_KEY) === 'desk') open();
+  };
+
+  return { init, open, close, toggle };
 })();
 
+// Étendre l'initialisation existante
+const _origInit = init;
+// On ré-exécute DeskTheme.init() après le reste
 document.addEventListener('DOMContentLoaded', () => {
   DeskTheme.init();
 });

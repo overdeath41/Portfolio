@@ -13,11 +13,21 @@ const CONFIG = {
   },
   latin: {
     phrases: [
-      "The bird of Hermes is my name, eating my wings to make me tame",
-      "Vae victis",
-      "Gott mit uns",
-      "Die Wahrheit ist im Blut",
-      "Ad majorem Dei gloriam"
+      "Memento mori",
+      "Veni vidi vici",
+      "Alea iacta est",
+      "Carpe diem",
+      "In vino veritas",
+      "Per aspera ad astra",
+      "Dum spiro spero",
+      "Errare humanum est",
+      "Cogito ergo sum",
+      "Tempus fugit",
+      "Sic transit gloria mundi",
+      "Acta non verba",
+      "Si vis pacem para bellum",
+      "Ars longa vita brevis",
+      "Amor vincit omnia"
     ],
     // Nombre de rangées de texte qui défilent en parallèle
     rowCount: 10
@@ -32,23 +42,33 @@ const CONFIG = {
 };
 
 // ========================
-// FADE-IN ANIMATION (inchangé)
+// CARTES DÉPLIABLES
+// Chaque .card contient un .card-header (bouton) et un .card-body.
+// Un clic bascule la classe .is-open sur la carte.
+// ========================
+const initCards = () => {
+  document.querySelectorAll('.card-header').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.card');
+      const isOpen = card.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', isOpen);
+    });
+  });
+};
+
+// ========================
+// FADE-IN AU SCROLL (les cartes apparaissent en scrollant)
 // ========================
 const initFadeInAnimation = () => {
-  const sections = document.querySelectorAll('.fade-in');
-
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     },
     { threshold: CONFIG.animation.threshold }
   );
-
-  sections.forEach(section => observer.observe(section));
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 };
 
 // ========================
@@ -344,13 +364,13 @@ const initTheme = (latinAnim, subliminalImg) => {
         subliminalImg.start(CONFIG.subliminal.imageSrc);
       }
       console.log("THEME BLOOD:", isBlood);
-      if (btn) btn.textContent = '💚 Mode Matrix';
+      if (btn) { btn.textContent = '💚'; btn.title = 'Mode Matrix'; }
     } else {
       document.body.classList.remove('theme-blood');
       matrixCanvas.style.display = '';
       latinAnim.stop();
       subliminalImg.stop();
-      if (btn) btn.textContent = '🩸 Mode Sang';
+      if (btn) { btn.textContent = '🩸'; btn.title = 'Mode Sang'; }
     }
   };
  
@@ -367,6 +387,48 @@ const initTheme = (latinAnim, subliminalImg) => {
 };
 
 // ========================
+// MENU MOBILE HAMBURGER
+// ========================
+const initMobileNav = () => {
+  const toggle = document.getElementById('mobileNavToggle');
+  const menu   = document.getElementById('mobileNavMenu');
+  if (!toggle || !menu) return;
+
+  // Ouvrir / fermer le menu
+  toggle.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('open');
+    toggle.textContent = isOpen ? '✕ Fermer' : '☰ Menu';
+  });
+
+  // Fermer le menu quand on clique un lien
+  menu.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      menu.classList.remove('open');
+      toggle.textContent = '☰ Menu';
+
+      // Effet sang si actif
+      if (document.body.classList.contains('theme-blood')) {
+        triggerBloodDrip(link);
+      }
+
+      const targetId = link.getAttribute('href').substring(1);
+      const target   = document.getElementById(targetId);
+      if (target) {
+        // Ouvrir la carte cible si elle est fermée
+        const card = target.closest ? target : target;
+        if (card && !card.classList.contains('is-open')) {
+          card.classList.add('is-open');
+          const btn = card.querySelector('.card-header');
+          if (btn) btn.setAttribute('aria-expanded', 'true');
+        }
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+      }
+    });
+  });
+};
+
+// ========================
 // FOOTER YEAR (inchangé)
 // ========================
 const updateFooterYear = () => {
@@ -380,8 +442,10 @@ const updateFooterYear = () => {
 // INITIALISATION
 // ========================
 const init = () => {
+  initCards();
   initFadeInAnimation();
   initSmoothScroll();
+  initMobileNav();
   new MatrixAnimation('matrix');
   updateFooterYear();
 
@@ -765,7 +829,7 @@ const DeskTheme = (() => {
     // Stopper les images subliminales pendant le mode bureau
     if (window._subliminalImg) window._subliminalImg.stop();
     const btn = document.getElementById('deskToggle');
-    if (btn) btn.textContent = '✕ Fermer Bureau';
+    if (btn) { btn.textContent = '✕'; btn.title = 'Fermer Bureau'; }
     document.addEventListener('keydown', _escClose);
   };
 
@@ -779,7 +843,7 @@ const DeskTheme = (() => {
       window._subliminalImg.start(CONFIG.subliminal.imageSrc);
     }
     const btn = document.getElementById('deskToggle');
-    if (btn) btn.textContent = '🖥️ Mode Bureau';
+    if (btn) { btn.textContent = '🖥️'; btn.title = 'Mode Bureau'; }
     document.removeEventListener('keydown', _escClose);
   };
 

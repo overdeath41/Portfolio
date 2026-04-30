@@ -539,6 +539,28 @@ body.theme-desk .navbar {
   display: none;
 }
 
+/* ══ SCÈNE BUREAU — règles d'affichage (disparues, restaurées) ══ */
+#desk-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: none;                /* caché par défaut */
+  background: radial-gradient(ellipse 80% 60% at 50% 30%, #1f1710 0%, #0a0806 100%);
+  overflow: hidden;
+  font-family: 'JetBrains Mono', monospace;
+  color: #f0ead8;
+}
+
+body.theme-desk #desk-scene {
+  display: block;               /* affiché quand theme-desk actif */
+}
+
+/* Masquer le contenu portfolio sous le bureau */
+body.theme-desk main,
+body.theme-desk footer {
+  visibility: hidden;
+}
+
 
 /* ════════════════════════════════════════════════════════
    BOUTONS THÈME — version compacte (icône seule)
@@ -611,8 +633,9 @@ body.theme-desk .navbar {
 }
 
 /* Carte large : pleine largeur de la grille */
+/* card--wide désactivé — toutes les cartes font la même largeur */
 .card--wide {
-  grid-column: 1 / -1;
+  grid-column: auto;
 }
 
 /* ── Carte individuelle ── */

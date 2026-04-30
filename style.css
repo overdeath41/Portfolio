@@ -558,80 +558,34 @@ body.theme-desk .navbar {
    NAVBAR DESKTOP — masquée sur mobile
 ════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
-  .navbar { display: none; }
-}
-
-/* ════════════════════════════════════════════════════════
-   NAVBAR MOBILE
-   Barre fixe en bas de l'écran avec un bouton hamburger.
-   Le menu se déploie vers le haut.
-════════════════════════════════════════════════════════ */
-.mobile-nav {
-  display: none; /* masqué sur desktop */
-}
-
-@media (max-width: 768px) {
-  .mobile-nav {
-    display: block;
+  /* Sur mobile : navbar fixe EN HAUT — ne scrolle pas avec la page */
+  .navbar {
     position: fixed;
-    bottom: 0; left: 0; right: 0;
-    z-index: 999;
-    background: var(--color-bg);
-    border-top: var(--border-width) solid var(--color-primary);
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    overflow-x: auto;          /* scroll horizontal si les items dépassent */
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    padding: 0.3rem 0;
   }
-
-  /* Bouton hamburger */
-  .mobile-nav-toggle {
-    display: block;
-    width: 100%;
-    padding: 0.7rem 1rem;
-    background: transparent;
-    color: var(--color-primary);
-    border: none;
-    font-family: var(--font-mono);
-    font-size: 0.9rem;
-    font-weight: bold;
-    cursor: pointer;
-    text-align: center;
-    letter-spacing: 0.05em;
+  .navbar ul {
+    flex-wrap: nowrap;         /* une seule ligne, scroll horizontal */
+    gap: 0.4rem;
+    padding: 0 0.5rem;
+    display: inline-flex;
   }
-
-  /* Menu déroulant vers le haut */
-  .mobile-nav-menu {
-    display: none;
-    flex-direction: column;
-    max-height: 50vh;
-    overflow-y: auto;
-    border-top: 1px solid rgba(var(--color-primary), 0.2);
+  .navbar li a {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.45rem;
+    white-space: nowrap;
   }
-
-  .mobile-nav-menu.open {
-    display: flex;
-  }
-
-  .mobile-nav-link {
-    display: block;
-    padding: 0.6rem 1.2rem;
-    color: var(--color-primary);
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.9rem;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    transition: background var(--transition);
-  }
-
-  .mobile-nav-link:hover,
-  .mobile-nav-link:active {
-    background: rgba(255,255,255,0.05);
-  }
-
-  /* Espace en bas du contenu pour ne pas être caché par la nav mobile */
-  main   { padding-bottom: 60px; }
-  footer { margin-bottom: 48px; }
+  /* Espace en haut du contenu pour ne pas être caché par la navbar fixe */
+  main   { padding-top: 48px; }
+  header { padding-top: 3.5rem; }
 }
 
-/* Masquer la nav mobile en mode bureau */
-body.theme-desk .mobile-nav { display: none; }
+/* .mobile-nav masqué — navigation gérée par la navbar fixe sur mobile */
+.mobile-nav { display: none; }
 
 
 /* ════════════════════════════════════════════════════════
@@ -641,7 +595,7 @@ body.theme-desk .mobile-nav { display: none; }
 ════════════════════════════════════════════════════════ */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
   padding: 1.5rem 1rem;
   max-width: 1200px;
@@ -737,8 +691,9 @@ body.theme-desk .mobile-nav { display: none; }
 }
 
 .card.is-open .card-body {
-  max-height: 2000px; /* assez grand pour n'importe quel contenu */
+  max-height: 2000px; /* assez grand pour tout contenu */
   padding: 1rem 1.2rem 1.2rem;
+  overflow: visible;
 }
 
 /* Styles internes du corps des cartes */

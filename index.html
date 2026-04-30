@@ -17,9 +17,11 @@
 <body>
   <header>
     <!-- Groupe de boutons de thème — haut droite du header (desktop) -->
+    <!-- Bouton unique cycling : Matrix → Sang → Bureau → Matrix … -->
     <div class="theme-btn-group">
-      <button class="theme-toggle-btn" id="themeToggle" aria-label="Basculer thème sang/matrix">🩸</button>
-      <button class="theme-toggle-btn" id="deskToggle"  aria-label="Ouvrir le bureau interactif">🖥️</button>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Changer de thème" title="Changer de thème">
+        🩸
+      </button>
     </div>
 
     <canvas id="matrix" aria-hidden="true"></canvas>
@@ -103,7 +105,7 @@
       </div>
 
       <!-- MISSIONS & PROJETS — carte large (occupe 2 colonnes sur desktop) -->
-      <div class="card card--wide fade-in" id="missions">
+      <div class="card fade-in" id="missions">
         <button class="card-header" aria-expanded="false" aria-controls="card-body-missions">
           <span class="card-icon">🔧</span>
           <span class="card-title">Missions &amp; Projets</span>
@@ -185,7 +187,7 @@
       </div>
 
       <!-- COMPÉTENCES — carte large -->
-      <div class="card card--wide fade-in" id="competences">
+      <div class="card fade-in" id="competences">
         <button class="card-header" aria-expanded="false" aria-controls="card-body-competences">
           <span class="card-icon">⚙️</span>
           <span class="card-title">Compétences techniques</span>
@@ -230,7 +232,7 @@
       </div>
 
       <!-- CONTACT — carte large -->
-      <div class="card card--wide fade-in" id="contact">
+      <div class="card fade-in" id="contact">
         <button class="card-header" aria-expanded="false" aria-controls="card-body-contact">
           <span class="card-icon">📬</span>
           <span class="card-title">Contact</span>

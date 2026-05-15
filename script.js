@@ -52,7 +52,7 @@ const PANELS = {
           <ul>
             <li>50+ switches Cisco Catalyst 9200L — rack, fibre optique, cuivre</li>
             <li>VLAN, SSH, port-security, DHCP snooping</li>
-            <li>Diagnostic incidents réseau, templates Cisco, documentation</li>
+            <li>Diagnostic incidents réseau, Dépannage, documentation</li>
           </ul>
         </div>
       </div>

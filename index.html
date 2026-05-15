@@ -26,23 +26,23 @@
       <div class="ds-bracket r"></div>
     </div>
     <div class="ds-folders-row">
-      <div class="ds-folder" data-did="cv" onclick="openPanel('cv')">
+      <div class="ds-folder" data-did="cv">
         <div class="ds-tooltip">CV</div>
         <div class="ds-folder-body"><span class="ds-folder-label">CV</span></div>
       </div>
-      <div class="ds-folder" data-did="exp" onclick="openPanel('exp')">
+      <div class="ds-folder" data-did="exp">
         <div class="ds-tooltip">Expériences</div>
         <div class="ds-folder-body"><span class="ds-folder-label">Expériences</span></div>
       </div>
-      <div class="ds-folder" data-did="projets" onclick="openPanel('projets')">
+      <div class="ds-folder" data-did="projets">
         <div class="ds-tooltip">Projets</div>
         <div class="ds-folder-body"><span class="ds-folder-label">Projets</span></div>
       </div>
-      <div class="ds-folder" data-did="formations" onclick="openPanel('formations')">
+      <div class="ds-folder" data-did="formations">
         <div class="ds-tooltip">Formations</div>
         <div class="ds-folder-body"><span class="ds-folder-label">Formations</span></div>
       </div>
-      <div class="ds-folder" data-did="contact" onclick="openPanel('contact')">
+      <div class="ds-folder" data-did="contact">
         <div class="ds-tooltip">Contact</div>
         <div class="ds-folder-body"><span class="ds-folder-label">Contact</span></div>
       </div>
@@ -63,7 +63,7 @@
         </div>
 
         <!-- Moniteur -->
-        <div class="ds-monitor-group" onclick="openPanel('computer')">
+        <div class="ds-monitor-group" data-did="computer">
           <div class="ds-tooltip">Compétences IT</div>
           <div class="ds-monitor-bezel">
             <div class="ds-monitor-screen">
@@ -134,7 +134,7 @@
   <div class="ds-hint">↑ Clique sur les dossiers ou l'écran pour explorer</div>
 
   <!-- Panel overlay -->
-  <div id="ds-panel-overlay" onclick="if(event.target===this)closePanel()">
+  <div id="ds-panel-overlay">
     <div class="ds-panel">
       <div class="ds-panel-header">
         <div class="ds-panel-icon" id="ds-panel-icon"></div>
@@ -142,7 +142,7 @@
           <div class="ds-panel-title" id="ds-panel-title"></div>
           <div class="ds-panel-sub" id="ds-panel-sub"></div>
         </div>
-        <button class="ds-panel-close" onclick="closePanel()">✕</button>
+        <button class="ds-panel-close" id="ds-panel-close">✕</button>
       </div>
       <div class="ds-panel-body" id="ds-panel-body"></div>
     </div>

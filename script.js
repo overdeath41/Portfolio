@@ -198,10 +198,10 @@ const PANELS = {
     sub: 'stack technique — luc.thumser',
     html: `
       <div class="ds-tabs">
-        <div class="ds-tab active" onclick="window.switchTab(this,'res')">Réseaux</div>
-        <div class="ds-tab" onclick="window.switchTab(this,'sys')">Systèmes</div>
-        <div class="ds-tab" onclick="window.switchTab(this,'dev')">Dev &amp; Scripts</div>
-        <div class="ds-tab" onclick="window.switchTab(this,'tools')">Outils</div>
+        <div class="ds-tab active" data-tab="res">Réseaux</div>
+        <div class="ds-tab" data-tab="sys">Systèmes</div>
+        <div class="ds-tab" data-tab="dev">Dev &amp; Scripts</div>
+        <div class="ds-tab" data-tab="tools">Outils</div>
       </div>
       <div class="ds-tab-content active" id="ds-tab-res">
         <div class="ds-skills-grid">
@@ -243,32 +243,63 @@ const PANELS = {
 };
 
 // ========================
-// FONCTIONS D'INTERACTION
-// Exposées sur window pour être accessibles
-// depuis les attributs onclick dans le HTML
+// LOGIQUE D'INTERACTION
 // ========================
 
-window.openPanel = function(id) {
+function openPanel(id) {
   const d = PANELS[id];
   if (!d) return;
-
   document.getElementById('ds-panel-icon').textContent = d.icon;
   document.getElementById('ds-panel-icon').style.background = d.color + '22';
   document.getElementById('ds-panel-title').textContent = d.title;
   document.getElementById('ds-panel-sub').textContent = d.sub;
   document.getElementById('ds-panel-body').innerHTML = d.html;
   document.getElementById('ds-panel-overlay').classList.add('active');
-};
 
-window.closePanel = function() {
+  // Attacher les clics sur les onglets une fois le HTML injecté
+  document.querySelectorAll('#ds-panel-body .ds-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var tabId = tab.getAttribute('data-tab');
+      document.querySelectorAll('#ds-panel-body .ds-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('#ds-panel-body .ds-tab-content').forEach(function(c) { c.classList.remove('active'); });
+      tab.classList.add('active');
+      var content = document.getElementById('ds-tab-' + tabId);
+      if (content) content.classList.add('active');
+    });
+  });
+}
+
+function closePanel() {
   document.getElementById('ds-panel-overlay').classList.remove('active');
-};
+}
 
-window.switchTab = function(el, id) {
-  const body = el.closest('.ds-panel-body');
-  body.querySelectorAll('.ds-tab').forEach(t => t.classList.remove('active'));
-  body.querySelectorAll('.ds-tab-content').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  const content = document.getElementById('ds-tab-' + id);
-  if (content) content.classList.add('active');
-};
+// ========================
+// INITIALISATION — après chargement du DOM
+// ========================
+
+document.addEventListener('DOMContentLoaded', function() {
+
+  // Clic sur les dossiers
+  document.querySelectorAll('.ds-folder[data-did]').forEach(function(folder) {
+    folder.addEventListener('click', function() {
+      openPanel(folder.getAttribute('data-did'));
+    });
+  });
+
+  // Clic sur le moniteur
+  var monitor = document.querySelector('.ds-monitor-group[data-did]');
+  if (monitor) {
+    monitor.addEventListener('click', function() {
+      openPanel(monitor.getAttribute('data-did'));
+    });
+  }
+
+  // Bouton fermer le panel
+  document.getElementById('ds-panel-close').addEventListener('click', closePanel);
+
+  // Clic sur l'overlay (en dehors du panel) pour fermer
+  document.getElementById('ds-panel-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closePanel();
+  });
+
+});

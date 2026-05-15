@@ -1,655 +1,40 @@
 /* ========================
-   CSS VARIABLES — THÈME MATRIX (défaut)
-======================== */
-:root {
-  --color-bg: #000;
-  --color-primary: #00ff6a;
-  --color-text: #e5ffe5;
-  --color-text-light: #c8ffc8;
-  --color-shadow: #00ff6a44;
-  --color-shadow-hover: #00ff6a66;
-  --border-width: 2px;
-  --border-radius: 5px;
-  --border-radius-lg: 12px;
-  --transition: 0.3s;
-  --font-mono: monospace, Arial;
-}
-
-/* ========================
-   THÈME SANG
-   Ajout de .theme-blood sur <body> remplace toutes les couleurs.
-   Tout le reste du CSS utilise var() donc s'adapte automatiquement.
-======================== */
-body.theme-blood {
-  --color-bg: #0a0000;
-  --color-primary: #cc0000;
-  --color-text: #ffe5e5;
-  --color-text-light: #ffb3b3;
-  --color-shadow: #cc000044;
-  --color-shadow-hover: #cc000066;
-}
-
-/* ========================
    BASE
 ======================== */
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-mono);
-  line-height: 1.6;
-}
-
-/* Le canvas latin (#latin-canvas) est créé par JS en position: fixed z-index: 0.
-   Le main et le footer ont un z-index positif pour rester lisibles par-dessus. */
-main {
-  position: relative;
-  z-index: 2;
-  padding: 2rem 1rem;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-section {
-  margin-bottom: 3rem;
-  scroll-margin-top: 55px;
-}
-
-p {
-  text-align: justify;
-  text-justify: inter-word;
-}
-
-/* ========================
-   HEADER
-   z-index: 3 pour rester au-dessus du canvas latin (z: 0) et du main (z: 2).
-======================== */
-header {
-  position: relative;
-  z-index: 3;
-  background-color: var(--color-bg);
-  color: var(--color-primary);
-  padding: 2rem 1rem;
-  text-align: center;
-  border-bottom: var(--border-width) solid var(--color-primary);
-}
-
-/* Canvas de l'animation Matrix — en absolu dans le header */
-#matrix {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: 1;
-}
-
-.profile-pic {
-  position: relative;
-  z-index: 2;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1rem;
-  border: 3px solid var(--color-primary);
-}
-
-header h1,
-header p,
-header .links {
-  position: relative;
-  z-index: 2;
-}
-
-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.3rem;
-  color: var(--color-primary);
-}
-
-header p {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-  color: var(--color-text-light);
-}
-
-.links {
-  margin-top: 1rem;
-}
-
-.btn-cv {
-  display: inline-block;
-  background-color: var(--color-bg);
-  color: var(--color-primary);
-  border: var(--border-width) solid var(--color-primary);
-  padding: 0.5rem 1rem;
-  border-radius: var(--border-radius);
-  text-decoration: none;
-  margin: 0 0.3rem;
-  font-weight: bold;
-  transition: var(--transition);
-}
-
-.btn-cv:hover {
-  background-color: var(--color-primary);
-  color: var(--color-bg);
-}
-
-/* ========================
-   BOUTON CHANGEMENT DE THÈME
-   Positionné en absolu en haut à droite du header.
-======================== */
-.theme-toggle-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
-  background-color: transparent;
-  color: var(--color-primary);
-  border: var(--border-width) solid var(--color-primary);
-  padding: 0.4rem 0.9rem;
-  border-radius: var(--border-radius);
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  font-weight: bold;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background-color var(--transition), color var(--transition), box-shadow var(--transition);
-}
-
-.theme-toggle-btn:hover {
-  background-color: var(--color-primary);
-  color: var(--color-bg);
-  box-shadow: 0 0 10px var(--color-shadow-hover);
-}
-
-/* ========================
-   NAVIGATION (sticky)
-======================== */
-.navbar {
-  background-color: var(--color-bg);
-  text-align: center;
-  padding: 0.5rem 0;
-  border-bottom: var(--border-width) solid var(--color-primary);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.navbar ul {
-  list-style: none;
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.navbar li {
-  position: relative;
-}
-
-.navbar li a {
-  position: relative;
-  display: inline-block;
-  text-decoration: none;
-  color: var(--color-primary);
-  font-weight: bold;
-  padding: 0.3rem 0.6rem;
-  border-radius: var(--border-radius);
-  transition: background-color var(--transition), color var(--transition);
-  overflow: visible;
-}
-
-.navbar li a:hover {
-  background-color: var(--color-primary);
-  color: var(--color-bg);
-}
-
-/* ========================
-   EFFET COULÉE DE SANG — liens de navigation
-   Une <span class="blood-drop"> est créée dynamiquement par JS au clic
-   (uniquement en thème sang). Elle descend depuis le haut du lien.
-======================== */
-.blood-drop {
-  position: absolute;
-  top: 100%; /* 🔥 part SOUS le lien */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 6px;
-  height: 12px; /* déjà visible */
-  background: linear-gradient(to bottom, #cc0000, #600000);
-  border-radius: 50%;
-  pointer-events: none;
-  animation: bloodDrip 0.8s ease-out forwards;
-  z-index: 9999;
-}
-
-@keyframes bloodDrip {
-  0% {
-    transform: translate(-50%, 0);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, 25px); /* descend vraiment */
-    opacity: 1;
-  }
-}
-
-/* Flash de couleur du lien au clic en thème sang */
-body.theme-blood .navbar li a:active {
-  background-color: #8b0000;
-  color: #fff;
-}
-
-/* ========================
-   SECTIONS
-======================== */
-section h2 {
-  background-color: var(--color-bg);
-  border: var(--border-width) solid var(--color-primary);
-  color: var(--color-primary);
-  padding: 0.5rem 1rem;
-  border-radius: var(--border-radius);
-  display: inline-block;
-  margin-bottom: 1rem;
-}
-
-section h3 {
-  color: var(--color-primary);
-  margin: 1.5rem 0 1rem;
-}
-
-section h4 {
-  color: var(--color-text-light);
-  margin: 1rem 0 0.5rem;
-}
-
-section p {
-  margin-bottom: 1rem;
-}
-
-section ul {
-  margin-left: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-section li {
-  margin-bottom: 0.5rem;
-}
-
-/* ========================
-   MISSION CARDS
-======================== */
-.mission-card {
-  background-color: var(--color-bg);
-  border: var(--border-width) solid var(--color-primary);
-  border-radius: var(--border-radius-lg);
-  padding: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.mission-card.secondary {
-  opacity: 0.9;
-}
-
-.mission-period {
-  color: var(--color-text-light);
-  font-style: italic;
-  margin-bottom: 0.5rem;
-}
-
-.mission-context {
-  color: var(--color-text-light);
-  margin-bottom: 1rem;
-}
-
-.learning-highlight {
-  background-color: rgba(0, 255, 106, 0.05);
-  border-left: 4px solid var(--color-primary);
-  padding: 1rem;
-  margin-top: 1.5rem;
-  border-radius: var(--border-radius);
-}
-
-body.theme-blood .learning-highlight {
-  background-color: rgba(204, 0, 0, 0.05);
-}
-
-.mission-card ul {
-  margin-left: 1.5rem;
-}
-
-.mission-card ul ul {
-  margin-top: 0.5rem;
-  margin-left: 2rem;
-}
-
-/* ========================
-   TABLES
-======================== */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-}
-
-table th,
-table td {
-  border: 1px solid var(--color-primary);
-  padding: 0.5rem;
-  color: var(--color-text);
-  text-align: left;
-}
-
-table th {
-  background-color: var(--color-bg);
-  color: var(--color-primary);
-  font-weight: bold;
-}
-
-/* ========================
-   SOFT SKILLS
-======================== */
-.soft-skills {
-  list-style: none;
-  margin: 1rem 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.soft-skills li {
-  display: inline-block;
-  background-color: var(--color-bg);
-  color: var(--color-primary);
-  padding: 0.3rem 0.6rem;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--color-primary);
-}
-
-/* ========================
-   UTILITAIRES
-======================== */
-.visually-hidden {
-  position: absolute;
-  width: 1px; height: 1px;
-  margin: -1px; padding: 0;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  border: 0;
-}
-
-.contact-email {
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-}
-
-/* ========================
-   CONTACT
-======================== */
-#contact {
-  max-width: 800px;
-  margin: 3rem auto;
-  padding: 2rem;
-  background-color: var(--color-bg);
-  border-radius: var(--border-radius-lg);
-  border: var(--border-width) solid var(--color-primary);
-  box-shadow: 0 0 15px var(--color-shadow);
-}
-
-#contact h2 {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-#contact p {
-  text-align: center;
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-  color: var(--color-text-light);
-}
-
-#contact a {
-  color: var(--color-primary);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-#contact a:hover {
-  text-decoration: underline;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.contact-form input,
-.contact-form textarea {
-  padding: 0.8rem 1rem;
-  border: 1px solid var(--color-primary);
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  border-radius: 8px;
-  font-size: 1rem;
-  font-family: var(--font-mono);
-  transition: var(--transition);
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 5px var(--color-shadow-hover);
-  outline: none;
-}
-
-.contact-form button {
-  padding: 0.8rem 1rem;
-  background-color: var(--color-primary);
-  color: var(--color-bg);
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  font-weight: 600;
-  transition: var(--transition);
-}
-
-.contact-form button:hover {
-  filter: brightness(1.15);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--color-shadow-hover);
-}
-
-/* ========================
-   FOOTER
-======================== */
-footer {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 1rem;
-  background-color: var(--color-bg);
-  border-top: var(--border-width) solid var(--color-primary);
-  color: var(--color-primary);
-  margin-top: 2rem;
-}
-
-.github-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  text-decoration: none;
-  color: inherit;
-  transition: var(--transition);
-}
-
-.github-link:hover {
-  opacity: 0.8;
-}
-
-.github-link img {
-  vertical-align: middle;
-}
-
-/* ========================
-   ANIMATIONS FADE-IN
-======================== */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ========================
-   RESPONSIVE
-======================== */
-@media (max-width: 768px) {
-  header h1 { font-size: 2rem; }
-  header p  { font-size: 1rem; }
-
-  .navbar ul {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  #contact        { padding: 1.5rem; }
-  #contact h2     { font-size: 1.7rem; }
-  table           { font-size: 0.9rem; }
-  .mission-card   { padding: 1rem; }
-
-  .theme-toggle-btn {
-    font-size: 0.75rem;
-    padding: 0.3rem 0.6rem;
-  }
-}
-
-/* Masquer la navbar de navigation en mode bureau */
-body.theme-desk .navbar {
-  display: none;
-}
-
-/* ════════════════════════════════════════════════════════
-   GROUPE DE BOUTONS DE THÈME
-   Contient le bouton Sang ET le bouton Bureau côte à côte
-════════════════════════════════════════════════════════ */
-.theme-btn-group {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  z-index: 10;
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-/* Les deux boutons partagent le même style de base,
-   déjà défini par .theme-toggle-btn, on surcharge juste
-   position (n'est plus absolu individuellement) */
-.theme-btn-group .theme-toggle-btn {
-  position: static; /* annule le position:absolute hérité */
-}
-
-/* Bouton bureau — légèrement différent pour le distinguer */
-#deskToggle {
-  border-color: rgba(100, 180, 255, 0.5);
-  color: rgba(100, 180, 255, 0.9);
-}
-#deskToggle:hover {
-  background-color: rgba(100, 180, 255, 0.15);
-  color: #7dd3fc;
-  box-shadow: 0 0 10px rgba(100, 180, 255, 0.2);
-}
-
-/* En thème sang, le bouton bureau prend les couleurs sang */
-body.theme-blood #deskToggle {
-  border-color: rgba(204, 0, 0, 0.5);
-  color: rgba(220, 80, 80, 0.9);
-}
-
-
-/* ════════════════════════════════════════════════════════
-   SCÈNE DU BUREAU INTERACTIF
-   Overlay pleine page, par-dessus tout le contenu.
-   Invisible par défaut, visible quand body.theme-desk est actif.
-════════════════════════════════════════════════════════ */
-#desk-scene {
-  position: fixed;
-  inset: 0;
-  z-index: 500;           /* au-dessus du contenu (z:2/3) mais sous les panels (z:600) */
-  display: none;
   background: radial-gradient(ellipse 80% 60% at 50% 30%, #1f1710 0%, #0a0806 100%);
+  min-height: 100vh;
   overflow: hidden;
   font-family: 'JetBrains Mono', monospace;
 }
 
-/* Quand le thème bureau est actif */
-body.theme-desk #desk-scene {
-  display: block;
-}
-
-/* Bouton de retour au portfolio — coin haut gauche de la scène */
-#desk-back-btn {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  z-index: 10;
-  background: transparent;
-  color: rgba(232, 201, 122, 0.7);
-  border: 1px solid rgba(232, 201, 122, 0.25);
-  padding: 0.4rem 0.9rem;
-  border-radius: 5px;
-  font-family: monospace, Arial;
-  font-size: 0.85rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-#desk-back-btn:hover {
-  background: rgba(232, 201, 122, 0.1);
-  color: #e8c97a;
-  border-color: rgba(232, 201, 122, 0.5);
-}
-
-/* ── Variables couleur bureau (isolées dans #desk-scene) ── */
-#desk-scene {
-  --ds-accent:  #e8c97a;
-  --ds-accent2: #c8703a;
-  --ds-text:    #f0ead8;
-  --ds-dim:     #8a7d6a;
-  --ds-panel:   rgba(8,6,4,0.97);
-  --ds-pborder: rgba(232,201,122,0.2);
-}
-
-/* ── Lumière ambiante ── */
-#desk-scene::before {
+/* Lumière ambiante */
+body::before {
   content: '';
-  position: absolute;
+  position: fixed;
   top: -10%; left: 30%; width: 40%; height: 50%;
   background: radial-gradient(ellipse, rgba(232,201,122,0.04) 0%, transparent 70%);
   pointer-events: none;
+  z-index: 0;
 }
 
-/* ── Sol ── */
+/* ========================
+   SOL
+======================== */
 .ds-floor {
-  position: absolute;
+  position: fixed;
   bottom: 0; left: 0; right: 0;
   height: 32%;
   background: linear-gradient(to bottom, #1a1208 0%, #0f0c08 100%);
+  z-index: 0;
 }
+
 .ds-floor::after {
   content: '';
   position: absolute;
@@ -657,13 +42,17 @@ body.theme-desk #desk-scene {
   background: linear-gradient(90deg, transparent, rgba(232,201,122,0.08), transparent);
 }
 
-/* ── Étagère murale ── */
+/* ========================
+   ÉTAGÈRE MURALE
+======================== */
 .ds-wall-shelf {
-  position: absolute;
+  position: fixed;
   top: 6%; left: 50%;
   transform: translateX(-50%);
   width: 72%;
+  z-index: 1;
 }
+
 .ds-shelf-board {
   position: relative;
   height: 22px;
@@ -671,6 +60,7 @@ body.theme-desk #desk-scene {
   border-radius: 3px 3px 0 0;
   box-shadow: 0 4px 20px rgba(0,0,0,0.8), 0 1px 0 rgba(232,201,122,0.1) inset;
 }
+
 .ds-shelf-board::before {
   content: '';
   position: absolute;
@@ -678,6 +68,7 @@ body.theme-desk #desk-scene {
   background: linear-gradient(90deg, transparent 0%, rgba(232,201,122,0.15) 50%, transparent 100%);
   border-radius: 3px 3px 0 0;
 }
+
 .ds-bracket {
   position: absolute; bottom: 0;
   width: 16px; height: 40px;
@@ -687,7 +78,9 @@ body.theme-desk #desk-scene {
 .ds-bracket.l { left: 5%; }
 .ds-bracket.r { right: 5%; transform: scaleX(-1); }
 
-/* ── Rangée de dossiers ── */
+/* ========================
+   DOSSIERS
+======================== */
 .ds-folders-row {
   display: flex;
   align-items: flex-end;
@@ -695,13 +88,19 @@ body.theme-desk #desk-scene {
   padding: 8px 30px 0;
   height: 100px;
 }
+
 .ds-folder {
   position: relative;
   cursor: pointer;
   transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), filter 0.2s;
   transform-origin: bottom center;
 }
-.ds-folder:hover { transform: translateY(-8px) scale(1.04); filter: brightness(1.3); }
+
+.ds-folder:hover {
+  transform: translateY(-8px) scale(1.04);
+  filter: brightness(1.3);
+}
+
 .ds-folder-body {
   width: 64px; height: 80px;
   border-radius: 0 6px 4px 4px;
@@ -709,6 +108,7 @@ body.theme-desk #desk-scene {
   display: flex; align-items: flex-end; justify-content: center;
   padding-bottom: 8px;
 }
+
 .ds-folder-body::before {
   content: '';
   position: absolute;
@@ -718,12 +118,11 @@ body.theme-desk #desk-scene {
   border-radius: 4px 4px 0 0;
   filter: brightness(1.3);
 }
+
 .ds-folder-label {
   font-size: 8px;
   font-family: 'Syne', sans-serif;
   font-weight: 700;
-  text-align: center;
-  line-height: 1.2;
   letter-spacing: 0.05em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.85);
@@ -732,19 +131,24 @@ body.theme-desk #desk-scene {
   transform: rotate(180deg);
   height: 55px;
 }
+
 .ds-folder[data-did="cv"]         .ds-folder-body { background: #8b3a1a; }
 .ds-folder[data-did="exp"]        .ds-folder-body { background: #1a4a8b; }
 .ds-folder[data-did="projets"]    .ds-folder-body { background: #1a6b2c; }
 .ds-folder[data-did="formations"] .ds-folder-body { background: #6b1a7a; }
 .ds-folder[data-did="contact"]    .ds-folder-body { background: #7a5a1a; }
 
-/* ── Bureau ── */
+/* ========================
+   BUREAU
+======================== */
 .ds-desk {
-  position: absolute;
+  position: fixed;
   bottom: 28%;
   left: 50%; transform: translateX(-50%);
   width: 75%;
+  z-index: 1;
 }
+
 .ds-desk-top {
   position: relative;
   height: 28px;
@@ -752,6 +156,7 @@ body.theme-desk #desk-scene {
   border-radius: 4px 4px 0 0;
   box-shadow: 0 3px 0 #1a1008, 0 4px 0 #0a0800, 0 8px 30px rgba(0,0,0,0.9);
 }
+
 .ds-desk-top::before {
   content: '';
   position: absolute;
@@ -759,19 +164,25 @@ body.theme-desk #desk-scene {
   background: linear-gradient(90deg, transparent, rgba(255,220,140,0.18) 50%, transparent);
   border-radius: 4px 4px 0 0;
 }
+
 .ds-desk-front {
   height: 10px;
   background: #1a1008;
   border-radius: 0 0 2px 2px;
 }
-.ds-desk-legs { display: flex; justify-content: space-between; padding: 0 8%; }
+
+.ds-desk-legs {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8%;
+}
+
 .ds-desk-leg {
   width: 20px; height: 55px;
   background: linear-gradient(180deg, #1a1008 0%, #110d06 100%);
   border-radius: 0 0 3px 3px;
 }
 
-/* ── Surface du bureau ── */
 .ds-desk-surface {
   position: absolute;
   top: -120px; left: 0; right: 0;
@@ -781,7 +192,9 @@ body.theme-desk #desk-scene {
   justify-content: center;
 }
 
-/* ── Moniteur ── */
+/* ========================
+   MONITEUR
+======================== */
 .ds-monitor-group {
   position: relative;
   display: flex; flex-direction: column; align-items: center;
@@ -789,18 +202,21 @@ body.theme-desk #desk-scene {
   transition: filter 0.2s;
   z-index: 10;
 }
+
 .ds-monitor-group:hover { filter: brightness(1.1); }
+
 .ds-monitor-group:hover .ds-monitor-screen {
   box-shadow: 0 0 30px rgba(77,174,255,0.25), 0 0 60px rgba(77,174,255,0.1);
 }
+
 .ds-monitor-bezel {
   width: 280px; height: 175px;
   background: linear-gradient(180deg, #1a1a1a 0%, #111 100%);
   border-radius: 8px;
   padding: 8px;
   box-shadow: 0 0 0 1px #333, 0 20px 60px rgba(0,0,0,0.9), 4px 4px 0 #0a0a0a;
-  position: relative;
 }
+
 .ds-monitor-screen {
   width: 100%; height: 100%;
   background: #0d1117;
@@ -809,37 +225,61 @@ body.theme-desk #desk-scene {
   position: relative;
   transition: box-shadow 0.4s;
 }
+
 .ds-screen-dots {
   position: absolute; top: 6px; right: 8px;
   display: flex; gap: 4px; align-items: center;
 }
+
 .ds-dot { width: 6px; height: 6px; border-radius: 50%; }
 .ds-dot.r { background: #ff5f57; }
 .ds-dot.y { background: #febc2e; }
 .ds-dot.g { background: #28c840; }
+
 .ds-terminal {
   padding: 10px 12px;
-  font-size: 8px; line-height: 1.7;
+  font-size: 8px;
+  line-height: 1.7;
   color: #4ade80;
   font-family: 'JetBrains Mono', monospace;
 }
+
 .ds-tline { opacity: 0; animation: dsTL 0.3s forwards; }
-.ds-tline:nth-child(1){animation-delay:0.3s}
-.ds-tline:nth-child(2){animation-delay:0.7s}
-.ds-tline:nth-child(3){animation-delay:1.1s}
-.ds-tline:nth-child(4){animation-delay:1.5s}
-.ds-tline:nth-child(5){animation-delay:1.9s}
-.ds-tline:nth-child(6){animation-delay:2.3s}
+.ds-tline:nth-child(1) { animation-delay: 0.3s; }
+.ds-tline:nth-child(2) { animation-delay: 0.7s; }
+.ds-tline:nth-child(3) { animation-delay: 1.1s; }
+.ds-tline:nth-child(4) { animation-delay: 1.5s; }
+.ds-tline:nth-child(5) { animation-delay: 1.9s; }
+.ds-tline:nth-child(6) { animation-delay: 2.3s; }
 .ds-tline.dim { color: rgba(74,222,128,0.4); }
 .ds-tline.acc { color: #e8c97a; }
-.ds-cursor { display: inline-block; width: 5px; height: 10px; background: #4ade80; animation: dsCur 1s infinite; vertical-align: middle; }
-@keyframes dsTL  { to { opacity: 1; } }
+
+.ds-cursor {
+  display: inline-block;
+  width: 5px; height: 10px;
+  background: #4ade80;
+  animation: dsCur 1s infinite;
+  vertical-align: middle;
+}
+
+@keyframes dsTL { to { opacity: 1; } }
 @keyframes dsCur { 0%,49%{opacity:1} 50%,100%{opacity:0} }
 
-.ds-stand-neck { width: 16px; height: 28px; background: linear-gradient(90deg, #1a1a1a, #2a2a2a, #1a1a1a); }
-.ds-stand-base { width: 90px; height: 10px; background: linear-gradient(180deg, #222 0%, #111 100%); border-radius: 0 0 20px 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.8); }
+.ds-stand-neck {
+  width: 16px; height: 28px;
+  background: linear-gradient(90deg, #1a1a1a, #2a2a2a, #1a1a1a);
+}
 
-/* ── Clavier ── */
+.ds-stand-base {
+  width: 90px; height: 10px;
+  background: linear-gradient(180deg, #222 0%, #111 100%);
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+}
+
+/* ========================
+   CLAVIER
+======================== */
 .ds-keyboard {
   position: absolute;
   bottom: 4px; left: 50%; transform: translateX(-50%);
@@ -848,15 +288,19 @@ body.theme-desk #desk-scene {
   border-radius: 4px 4px 6px 6px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.6), 0 1px 0 #333 inset;
   display: grid;
-  grid-template-columns: repeat(14,1fr);
+  grid-template-columns: repeat(14, 1fr);
   grid-template-rows: 1fr 1fr 1fr;
-  gap: 2px; padding: 3px 4px 4px;
+  gap: 2px;
+  padding: 3px 4px 4px;
 }
+
 .ds-key { background: #252525; border-radius: 2px; box-shadow: 0 1px 0 #111; }
 .ds-key.w2 { grid-column: span 2; }
 .ds-key.sp { grid-column: span 6; }
 
-/* ── Souris ── */
+/* ========================
+   SOURIS
+======================== */
 .ds-mouse {
   position: absolute; right: 6%; bottom: 6px;
   width: 24px; height: 38px;
@@ -864,14 +308,21 @@ body.theme-desk #desk-scene {
   border-radius: 12px 12px 10px 10px;
   box-shadow: 2px 4px 8px rgba(0,0,0,0.7), 0 1px 0 #333 inset;
 }
+
 .ds-mouse::after {
   content: '';
   position: absolute; top: 8px; left: 50%; transform: translateX(-50%);
-  width: 1px; height: 12px; background: rgba(255,255,255,0.1);
+  width: 1px; height: 12px;
+  background: rgba(255,255,255,0.1);
 }
 
-/* ── Tasse de café ── */
-.ds-coffee { position: absolute; right: 14%; bottom: 4px; }
+/* ========================
+   TASSE DE CAFÉ
+======================== */
+.ds-coffee {
+  position: absolute; right: 14%; bottom: 4px;
+}
+
 .ds-cup-body {
   width: 26px; height: 30px;
   background: linear-gradient(160deg, #3a2a1a 0%, #1e1408 100%);
@@ -879,33 +330,53 @@ body.theme-desk #desk-scene {
   border: 1px solid rgba(255,255,255,0.08);
   position: relative; overflow: hidden;
 }
+
 .ds-cup-body::before {
   content: '';
   position: absolute; top: 4px; left: 4px; right: 4px; height: 4px;
-  background: rgba(40,20,10,0.8); border-radius: 50%;
+  background: rgba(40,20,10,0.8);
+  border-radius: 50%;
 }
+
 .ds-cup-handle {
   position: absolute; right: -10px; top: 8px;
   width: 10px; height: 12px;
   border: 2px solid #3a2a1a; border-left: none;
   border-radius: 0 6px 6px 0;
 }
-.ds-cup-saucer { width: 34px; height: 5px; background: linear-gradient(180deg, #3a2a1a, #1e1408); border-radius: 3px; margin: 0 auto; }
 
-/* ── Lampe ── */
+.ds-cup-saucer {
+  width: 34px; height: 5px;
+  background: linear-gradient(180deg, #3a2a1a, #1e1408);
+  border-radius: 3px;
+  margin: 0 auto;
+}
+
+/* ========================
+   LAMPE
+======================== */
 .ds-lamp { position: absolute; left: 8%; bottom: 4px; }
 .ds-lamp-base  { width: 30px; height: 6px; background: #1a1a1a; border-radius: 3px; }
 .ds-lamp-arm1  { width: 6px; height: 40px; background: #1a1a1a; margin: 0 auto; border-radius: 3px; }
 .ds-lamp-arm2  { width: 6px; height: 30px; background: #1a1a1a; margin-left: 4px; transform: rotate(40deg); transform-origin: bottom center; border-radius: 3px; }
 .ds-lamp-head  { width: 24px; height: 12px; background: #1c1c1c; border-radius: 12px 12px 4px 4px; margin-left: -4px; position: relative; }
-.ds-lamp-head::after { content: ''; position: absolute; bottom: -4px; left: 4px; right: 4px; height: 4px; background: rgba(232,201,122,0.6); border-radius: 0 0 4px 4px; box-shadow: 0 6px 20px rgba(232,201,122,0.2); }
+.ds-lamp-head::after {
+  content: '';
+  position: absolute; bottom: -4px; left: 4px; right: 4px; height: 4px;
+  background: rgba(232,201,122,0.6);
+  border-radius: 0 0 4px 4px;
+  box-shadow: 0 6px 20px rgba(232,201,122,0.2);
+}
 
-/* ── Chaise ── */
+/* ========================
+   CHAISE
+======================== */
 .ds-chair {
-  position: absolute; bottom: -2%;
+  position: fixed; bottom: -2%;
   left: 50%; transform: translateX(-50%) translateX(30px);
   z-index: 1;
 }
+
 .ds-chair-back {
   width: 90px; height: 100px;
   background: linear-gradient(180deg, #222 0%, #1a1a1a 100%);
@@ -914,54 +385,108 @@ body.theme-desk #desk-scene {
   box-shadow: 0 -4px 20px rgba(0,0,0,0.8), 2px 0 0 #111 inset, -2px 0 0 #333 inset;
   position: relative;
 }
+
 .ds-chair-back::before {
-  content: ''; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
-  background: repeating-linear-gradient(0deg, transparent 0px, transparent 8px, rgba(255,255,255,0.02) 8px, rgba(255,255,255,0.02) 9px);
+  content: '';
+  position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px, transparent 8px,
+    rgba(255,255,255,0.02) 8px, rgba(255,255,255,0.02) 9px
+  );
   border-radius: 4px;
 }
-.ds-chair-seat { width: 110px; height: 18px; background: linear-gradient(180deg, #282828 0%, #1a1a1a 100%); border-radius: 4px; margin: -2px auto 0; box-shadow: 0 6px 20px rgba(0,0,0,0.8); }
-.ds-chair-pole { width: 8px; height: 50px; background: linear-gradient(90deg, #1a1a1a, #2a2a2a, #1a1a1a); margin: 0 auto; }
-.ds-chair-base { display: flex; justify-content: center; gap: 4px; margin-top: -2px; }
-.ds-chair-spoke { width: 4px; height: 30px; background: #1a1a1a; transform-origin: top center; }
-.ds-chair-spoke:nth-child(1){ transform: rotate(-60deg); }
-.ds-chair-spoke:nth-child(2){ transform: rotate(-20deg); }
-.ds-chair-spoke:nth-child(3){ transform: rotate(20deg);  }
-.ds-chair-spoke:nth-child(4){ transform: rotate(60deg);  }
 
-/* ── Tooltip survol ── */
+.ds-chair-seat {
+  width: 110px; height: 18px;
+  background: linear-gradient(180deg, #282828 0%, #1a1a1a 100%);
+  border-radius: 4px;
+  margin: -2px auto 0;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.8);
+}
+
+.ds-chair-pole {
+  width: 8px; height: 50px;
+  background: linear-gradient(90deg, #1a1a1a, #2a2a2a, #1a1a1a);
+  margin: 0 auto;
+}
+
+.ds-chair-base {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-top: -2px;
+}
+
+.ds-chair-spoke {
+  width: 4px; height: 30px;
+  background: #1a1a1a;
+  transform-origin: top center;
+}
+.ds-chair-spoke:nth-child(1) { transform: rotate(-60deg); }
+.ds-chair-spoke:nth-child(2) { transform: rotate(-20deg); }
+.ds-chair-spoke:nth-child(3) { transform: rotate(20deg);  }
+.ds-chair-spoke:nth-child(4) { transform: rotate(60deg);  }
+
+/* ========================
+   TOOLTIP
+======================== */
 .ds-tooltip {
   position: absolute;
   bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%);
-  background: rgba(232,201,122,0.1); border: 1px solid rgba(232,201,122,0.25);
-  color: #e8c97a; font-size: 10px; padding: 4px 10px; border-radius: 4px;
-  white-space: nowrap; opacity: 0; pointer-events: none;
+  background: rgba(232,201,122,0.1);
+  border: 1px solid rgba(232,201,122,0.25);
+  color: #e8c97a;
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
   transition: opacity 0.15s;
-  font-family: 'Syne', sans-serif; font-weight: 600;
-  letter-spacing: 0.06em; text-transform: uppercase;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
+
 .ds-folder:hover .ds-tooltip,
 .ds-monitor-group:hover .ds-tooltip { opacity: 1; }
 
-/* ── Hint bas de page ── */
+/* ========================
+   HINT
+======================== */
 .ds-hint {
-  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
-  font-size: 11px; color: rgba(232,201,122,0.4);
+  position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+  font-size: 11px;
+  color: rgba(232,201,122,0.4);
   font-family: 'JetBrains Mono', monospace;
-  animation: dsHint 3s infinite; pointer-events: none; white-space: nowrap;
+  animation: dsHint 3s infinite;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 2;
 }
+
 @keyframes dsHint { 0%,100%{opacity:0.4} 50%{opacity:0.8} }
 
-/* ══ PANEL BUREAU (z:600 pour passer au-dessus de tout) ══ */
+/* ========================
+   PANEL OVERLAY
+======================== */
 #ds-panel-overlay {
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.75);
   backdrop-filter: blur(4px);
   z-index: 600;
   display: none;
-  align-items: center; justify-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+#ds-panel-overlay.active {
+  display: flex;
   animation: dsFadeIn 0.2s ease;
 }
-#ds-panel-overlay.active { display: flex; }
+
 @keyframes dsFadeIn { from{opacity:0} to{opacity:1} }
 
 .ds-panel {
@@ -975,6 +500,7 @@ body.theme-desk #desk-scene {
   box-shadow: 0 40px 100px rgba(0,0,0,0.9), 0 0 0 1px rgba(232,201,122,0.05);
   animation: dsSlideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
 }
+
 @keyframes dsSlideUp { from{transform:translateY(30px);opacity:0} to{transform:translateY(0);opacity:1} }
 
 .ds-panel-header {
@@ -983,59 +509,139 @@ body.theme-desk #desk-scene {
   display: flex; align-items: center; gap: 12px;
   flex-shrink: 0;
 }
-.ds-panel-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-.ds-panel-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: #e8c97a; }
-.ds-panel-sub { font-size: 11px; color: #8a7d6a; margin-top: 2px; font-family: 'JetBrains Mono', monospace; }
-.ds-panel-close {
-  margin-left: auto; width: 32px; height: 32px; border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.1); background: transparent;
-  color: #8a7d6a; font-size: 18px; line-height: 1; cursor: pointer;
-  transition: all 0.15s; display: flex; align-items: center; justify-content: center;
+
+.ds-panel-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
 }
-.ds-panel-close:hover { background: rgba(255,255,255,0.06); color: #f0ead8; }
+
+.ds-panel-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 18px; font-weight: 700;
+  color: #e8c97a;
+}
+
+.ds-panel-sub {
+  font-size: 11px;
+  color: #8a7d6a;
+  margin-top: 2px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.ds-panel-close {
+  margin-left: auto;
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: #8a7d6a;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.ds-panel-close:hover {
+  background: rgba(255,255,255,0.06);
+  color: #f0ead8;
+}
 
 .ds-panel-body {
-  padding: 24px; overflow-y: auto; flex: 1;
-  color: #f0ead8; font-family: 'JetBrains Mono', monospace;
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+  color: #f0ead8;
+  font-family: 'JetBrains Mono', monospace;
 }
+
 .ds-panel-body::-webkit-scrollbar { width: 4px; }
 .ds-panel-body::-webkit-scrollbar-thumb { background: rgba(232,201,122,0.2); border-radius: 4px; }
 
-/* Composants internes des panels */
+/* ========================
+   COMPOSANTS INTERNES DES PANELS
+======================== */
 .ds-stag {
-  display: inline-block; font-size: 10px; font-weight: 600;
+  display: inline-block;
+  font-size: 10px; font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase;
-  color: #c8703a; border: 1px solid rgba(200,112,58,0.3);
-  padding: 3px 8px; border-radius: 4px; margin-bottom: 16px;
+  color: #c8703a;
+  border: 1px solid rgba(200,112,58,0.3);
+  padding: 3px 8px; border-radius: 4px;
+  margin-bottom: 16px;
   font-family: 'Syne', sans-serif;
 }
-.ds-entry { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+.ds-entry {
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
 .ds-entry:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-.ds-entry-hd { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
-.ds-entry-title { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: #f0ead8; }
-.ds-entry-date { font-size: 10px; color: #e8c97a; border: 1px solid rgba(232,201,122,0.2); padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+
+.ds-entry-hd {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 8px; flex-wrap: wrap; gap: 8px;
+}
+
+.ds-entry-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px; font-weight: 700;
+  color: #f0ead8;
+}
+
+.ds-entry-date {
+  font-size: 10px; color: #e8c97a;
+  border: 1px solid rgba(232,201,122,0.2);
+  padding: 2px 8px; border-radius: 4px;
+  white-space: nowrap;
+}
+
 .ds-entry-co { font-size: 11px; color: #c8703a; margin-bottom: 6px; font-weight: 600; }
+
 .ds-entry-body { font-size: 12px; color: #8a7d6a; line-height: 1.7; }
+.ds-entry-body p { margin-bottom: 8px; }
 .ds-entry-body li { margin-bottom: 4px; margin-left: 14px; }
 .ds-entry-body li::marker { color: #e8c97a; }
+
+/* Grille compétences */
 .ds-skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.ds-skill { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 12px; }
-.ds-skill-name { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600; color: #f0ead8; margin-bottom: 8px; }
-.ds-skill-bar { height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; margin-bottom: 6px; }
-.ds-skill-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #c8703a, #e8c97a); transition: width 0.8s cubic-bezier(0.4,0,0.2,1); }
-.ds-skill-lv { font-size: 10px; color: #8a7d6a; }
-.ds-tabs { display: flex; gap: 0; border-bottom: 1px solid rgba(232,201,122,0.1); margin-bottom: 20px; }
-.ds-tab {
-  padding: 8px 16px; font-size: 11px; font-family: 'Syne', sans-serif;
-  font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
-  color: #8a7d6a; border-bottom: 2px solid transparent;
-  cursor: pointer; transition: all 0.15s; margin-bottom: -1px;
+
+.ds-skill {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px; padding: 12px;
 }
+
+.ds-skill-name { font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 600; color: #f0ead8; margin-bottom: 8px; }
+.ds-skill-bar  { height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; margin-bottom: 6px; }
+.ds-skill-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, #c8703a, #e8c97a); }
+.ds-skill-lv   { font-size: 10px; color: #8a7d6a; }
+
+/* Onglets */
+.ds-tabs { display: flex; border-bottom: 1px solid rgba(232,201,122,0.1); margin-bottom: 20px; }
+
+.ds-tab {
+  padding: 8px 16px;
+  font-size: 11px; font-family: 'Syne', sans-serif;
+  font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+  color: #8a7d6a;
+  border-bottom: 2px solid transparent;
+  cursor: pointer; transition: all 0.15s;
+  margin-bottom: -1px;
+}
+
 .ds-tab:hover { color: #f0ead8; }
 .ds-tab.active { color: #e8c97a; border-bottom-color: #e8c97a; }
 .ds-tab-content { display: none; }
 .ds-tab-content.active { display: block; }
+
+/* CV */
 .ds-cv-info { display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
+
 .ds-cv-avatar {
   width: 70px; height: 70px; border-radius: 50%;
   background: linear-gradient(135deg, #2a1c0a, #3d2c14);
@@ -1044,44 +650,71 @@ body.theme-desk #desk-scene {
   font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: #e8c97a;
   flex-shrink: 0;
 }
+
 .ds-cv-name { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; color: #f0ead8; }
 .ds-cv-role { font-size: 12px; color: #c8703a; margin: 4px 0 10px; font-weight: 600; font-family: 'Syne', sans-serif; }
 .ds-cv-meta { display: flex; flex-wrap: wrap; gap: 6px; }
 .ds-cv-badge { font-size: 10px; color: #8a7d6a; border: 1px solid rgba(255,255,255,0.1); padding: 3px 8px; border-radius: 4px; }
+
 .ds-dl-btn {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 10px 20px; border-radius: 8px;
-  background: rgba(232,201,122,0.1); border: 1px solid rgba(232,201,122,0.25);
-  color: #e8c97a; font-family: 'Syne', sans-serif; font-size: 12px; font-weight: 700;
-  text-decoration: none; letter-spacing: 0.05em; cursor: pointer;
+  background: rgba(232,201,122,0.1);
+  border: 1px solid rgba(232,201,122,0.25);
+  color: #e8c97a; font-family: 'Syne', sans-serif;
+  font-size: 12px; font-weight: 700;
+  text-decoration: none; letter-spacing: 0.05em;
   transition: all 0.15s; margin-top: 12px;
 }
+
 .ds-dl-btn:hover { background: rgba(232,201,122,0.18); }
+
+/* Liens contact */
 .ds-clinks { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+
 .ds-clink {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 8px 14px; border-radius: 8px;
   border: 1px solid rgba(255,255,255,0.1);
-  font-size: 12px; color: #8a7d6a; text-decoration: none;
-  transition: all 0.15s; font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: #8a7d6a;
+  text-decoration: none; transition: all 0.15s;
+  font-family: 'JetBrains Mono', monospace;
 }
+
 .ds-clink:hover { border-color: rgba(232,201,122,0.3); color: #e8c97a; }
+
+/* Formulaire contact */
 .ds-contact-grid { display: grid; gap: 12px; }
+
 .ds-field { display: flex; flex-direction: column; gap: 6px; }
-.ds-field label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #8a7d6a; font-family: 'Syne', sans-serif; }
-.ds-field input, .ds-field textarea {
-  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 8px; padding: 10px 14px; color: #f0ead8;
-  font-family: 'JetBrains Mono', monospace; font-size: 12px; outline: none;
+
+.ds-field label {
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: #8a7d6a; font-family: 'Syne', sans-serif;
+}
+
+.ds-field input,
+.ds-field textarea {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; padding: 10px 14px;
+  color: #f0ead8; font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; outline: none;
   transition: border 0.15s; resize: none;
 }
-.ds-field input:focus, .ds-field textarea:focus { border-color: rgba(232,201,122,0.4); }
+
+.ds-field input:focus,
+.ds-field textarea:focus { border-color: rgba(232,201,122,0.4); }
+
 .ds-submit {
   width: 100%; padding: 12px;
   background: linear-gradient(135deg, #c8703a, #e8c97a);
   border: none; border-radius: 8px;
   font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700;
   letter-spacing: 0.06em; text-transform: uppercase;
-  color: #0a0600; cursor: pointer; transition: opacity 0.15s; margin-top: 4px;
+  color: #0a0600; cursor: pointer;
+  transition: opacity 0.15s; margin-top: 4px;
 }
+
 .ds-submit:hover { opacity: 0.88; }

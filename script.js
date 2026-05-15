@@ -86,19 +86,19 @@ const PANELS = {
         </div>
         <div class="ds-entry-body">
           <ul>
-            <li>Packet Tracer &amp; GNS3 — VLAN, OSPF, ACL, port-security, SSH</li>
+            <li>Packet Tracer &amp; VLAN, OSPF, ACL, HSRP </li>
             <li>Scénarios de troubleshooting multi-sites</li>
           </ul>
         </div>
       </div>
       <div class="ds-entry">
         <div class="ds-entry-hd">
-          <div class="ds-entry-title">Virtualisation VMware ESXi</div>
+          <div class="ds-entry-title">Virtualisation VMware</div>
           <div class="ds-entry-date">2025</div>
         </div>
         <div class="ds-entry-body">
           <ul>
-            <li>ESXi 8.0 — Windows Server 2025, pfSense, snapshots, migration VM</li>
+            <li>Windows Server, Ubuntu Server, pfSense, snapshots, migration VM</li>
           </ul>
         </div>
       </div>
@@ -130,7 +130,7 @@ const PANELS = {
           <div class="ds-entry-date">Sept. 2025 → 2027</div>
         </div>
         <div class="ds-entry-co">🏫 MEWO Campus Métiers — Metz (Alternance)</div>
-        <div class="ds-entry-body">Administration réseau, virtualisation, sécurité, support IT professionnel.</div>
+        <div class="ds-entry-body">Administration réseau, Infrastructure, Virtualisation, sécurité, support IT professionnel.</div>
       </div>
       <div class="ds-entry">
         <div class="ds-entry-hd">
@@ -151,7 +151,6 @@ const PANELS = {
       <div class="ds-stag">Certifications visées</div>
       <div class="ds-entry-body">
         <ul>
-          <li>Cisco Packet Tracer — obtenu</li>
           <li>CLA — C Programming (cpp institute)</li>
           <li>Python PCEP/PCAP (Python Institute)</li>
           <li>CCNA — Cisco Certified Network Associate</li>
@@ -195,7 +194,7 @@ const PANELS = {
     icon: '💻',
     color: '#4ade80',
     title: 'Compétences IT',
-    sub: 'stack technique — luc.thumser',
+    sub: 'stack technique — Luc Thumser',
     html: `
       <div class="ds-tabs">
         <div class="ds-tab active" data-tab="res">Réseaux</div>
@@ -206,37 +205,37 @@ const PANELS = {
       <div class="ds-tab-content active" id="ds-tab-res">
         <div class="ds-skills-grid">
           <div class="ds-skill"><div class="ds-skill-name">Cisco Catalyst / IOS</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:72%"></div></div><div class="ds-skill-lv">Intermédiaire — terrain réel</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">VLAN / Trunking / STP</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:70%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">OSPF / Routage statique</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:55%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">ACL / Port-security</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:60%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">VLAN / Trunking / STP</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:100%"></div></div><div class="ds-skill-lv">Avancé</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">OSPF / Routage statique</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">ACL / Port-security</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
           <div class="ds-skill"><div class="ds-skill-name">DHCP / DNS</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:65%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
           <div class="ds-skill"><div class="ds-skill-name">pfSense / Firewall</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:50%"></div></div><div class="ds-skill-lv">Débutant avancé</div></div>
         </div>
       </div>
       <div class="ds-tab-content" id="ds-tab-sys">
         <div class="ds-skills-grid">
-          <div class="ds-skill"><div class="ds-skill-name">VMware ESXi 8.0</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:68%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">Windows Server 2025</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:60%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">Virtualisation</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">Windows Server</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:60%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
           <div class="ds-skill"><div class="ds-skill-name">Active Directory</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:55%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">Linux (Debian/Ubuntu)</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:50%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">Snapshots / Migration VM</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:65%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">Support / Troubleshooting</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:70%"></div></div><div class="ds-skill-lv">Intermédiaire (terrain)</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">Linux</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:80%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">Snapshots / Migration VM</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">Support / Troubleshooting</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:90%"></div></div><div class="ds-skill-lv">Avancé</div></div>
         </div>
       </div>
       <div class="ds-tab-content" id="ds-tab-dev">
         <div class="ds-skills-grid">
-          <div class="ds-skill"><div class="ds-skill-name">Python</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:55%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">PowerShell</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:50%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">HTML / CSS / JS</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:45%"></div></div><div class="ds-skill-lv">Débutant avancé</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">C (bases)</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:35%"></div></div><div class="ds-skill-lv">Débutant</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">Python</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">PowerShell</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">HTML / CSS / JS</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:90%"></div></div><div class="ds-skill-lv">Avancé</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">C++</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:50%"></div></div><div class="ds-skill-lv">Débutant avancé</div></div>
         </div>
       </div>
       <div class="ds-tab-content" id="ds-tab-tools">
         <div class="ds-skills-grid">
-          <div class="ds-skill"><div class="ds-skill-name">Packet Tracer / GNS3</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Avancé</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">CrowdStrike Falcon</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:40%"></div></div><div class="ds-skill-lv">Notions (veille)</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">Azure (AZ-900)</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:35%"></div></div><div class="ds-skill-lv">En cours</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">Git / GitHub</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:45%"></div></div><div class="ds-skill-lv">Débutant avancé</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">Packet Tracer</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Avancé</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">à remplir</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:0%"></div></div><div class="ds-skill-lv">à remplir</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">à remplir</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:0%"></div></div><div class="ds-skill-lv">à remplir</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">Git / GitHub</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
         </div>
       </div>`
   }

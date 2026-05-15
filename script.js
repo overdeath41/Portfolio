@@ -198,10 +198,10 @@ const PANELS = {
     sub: 'stack technique — luc.thumser',
     html: `
       <div class="ds-tabs">
-        <div class="ds-tab active" onclick="switchTab(this,'res')">Réseaux</div>
-        <div class="ds-tab" onclick="switchTab(this,'sys')">Systèmes</div>
-        <div class="ds-tab" onclick="switchTab(this,'dev')">Dev &amp; Scripts</div>
-        <div class="ds-tab" onclick="switchTab(this,'tools')">Outils</div>
+        <div class="ds-tab active" onclick="window.switchTab(this,'res')">Réseaux</div>
+        <div class="ds-tab" onclick="window.switchTab(this,'sys')">Systèmes</div>
+        <div class="ds-tab" onclick="window.switchTab(this,'dev')">Dev &amp; Scripts</div>
+        <div class="ds-tab" onclick="window.switchTab(this,'tools')">Outils</div>
       </div>
       <div class="ds-tab-content active" id="ds-tab-res">
         <div class="ds-skills-grid">
@@ -244,9 +244,11 @@ const PANELS = {
 
 // ========================
 // FONCTIONS D'INTERACTION
+// Exposées sur window pour être accessibles
+// depuis les attributs onclick dans le HTML
 // ========================
 
-function openPanel(id) {
+window.openPanel = function(id) {
   const d = PANELS[id];
   if (!d) return;
 
@@ -256,17 +258,17 @@ function openPanel(id) {
   document.getElementById('ds-panel-sub').textContent = d.sub;
   document.getElementById('ds-panel-body').innerHTML = d.html;
   document.getElementById('ds-panel-overlay').classList.add('active');
-}
+};
 
-function closePanel() {
+window.closePanel = function() {
   document.getElementById('ds-panel-overlay').classList.remove('active');
-}
+};
 
-function switchTab(el, id) {
+window.switchTab = function(el, id) {
   const body = el.closest('.ds-panel-body');
   body.querySelectorAll('.ds-tab').forEach(t => t.classList.remove('active'));
   body.querySelectorAll('.ds-tab-content').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
   const content = document.getElementById('ds-tab-' + id);
   if (content) content.classList.add('active');
-}
+};

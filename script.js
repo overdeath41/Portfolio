@@ -6,7 +6,7 @@ const PANELS = {
     icon: '📄',
     color: '#c8703a',
     title: 'Curriculum Vitae',
-    sub: 'luc.thumser — BTS SIO SISR',
+    sub: 'Luc Thumser — BTS SIO SISR',
     html: `
       <div class="ds-cv-info">
         <div class="ds-cv-avatar">LT</div>
@@ -17,14 +17,14 @@ const PANELS = {
             <span class="ds-cv-badge">📍 Sarreguemines</span>
             <span class="ds-cv-badge">🎂 13/02/2005</span>
             <span class="ds-cv-badge">🚗 Permis B</span>
-            <span class="ds-cv-badge">🇫🇷 FR · 🇩🇪 DE B2 · 🇬🇧 EN B2</span>
+            <span class="ds-cv-badge"> FR ·  DE B2+ ·  EN B2+</span>
           </div>
           <a class="ds-dl-btn" href="CV_Luc_Thumser.pdf" download>⬇ Télécharger le CV (PDF)</a>
         </div>
       </div>
       <div class="ds-stag">Profil</div>
       <div class="ds-entry-body" style="margin-bottom:20px">
-        <p>Étudiant en BTS SIO SISR en alternance chez Continental Automotive, spécialisé en administration réseau Cisco, virtualisation ESXi et support IT en environnement industriel international.</p>
+        <p>Étudiant en BTS SIO SISR en alternance chez Continental Automotive, spécialisé en administration réseau, virtualisation et support IT en environnement industriel.</p>
       </div>
       <div class="ds-stag">Contact</div>
       <div class="ds-clinks">
@@ -44,13 +44,13 @@ const PANELS = {
       <div class="ds-stag">Alternance</div>
       <div class="ds-entry">
         <div class="ds-entry-hd">
-          <div class="ds-entry-title">Administrateur Systèmes &amp; Réseaux</div>
+          <div class="ds-entry-title">Technicien Informatique</div>
           <div class="ds-entry-date">Août 2025 → Aujourd'hui</div>
         </div>
         <div class="ds-entry-co">🏭 Continental Automotive — Sarreguemines</div>
         <div class="ds-entry-body">
           <ul>
-            <li>10+ switches Cisco Catalyst 9200L — rack, fibre optique, cuivre</li>
+            <li>50+ switches Cisco Catalyst 9200L — rack, fibre optique, cuivre</li>
             <li>VLAN, SSH, port-security, DHCP snooping</li>
             <li>Diagnostic incidents réseau, templates Cisco, documentation</li>
           </ul>

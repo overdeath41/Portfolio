@@ -160,6 +160,8 @@ body::before {
 .ds-folder[data-did="projets"]    .ds-folder-body { background: linear-gradient(160deg, #2a9645, #1a6b2c); }
 .ds-folder[data-did="formations"] .ds-folder-body { background: linear-gradient(160deg, #9e2ab8, #6b1a7a); }
 .ds-folder[data-did="contact"]    .ds-folder-body { background: linear-gradient(160deg, #b5851a, #7a5a1a); }
+.ds-folder[data-did="documentation"] .ds-folder-body { background: linear-gradient(160deg, #2a9e9e, #1a6b6b); }
+.ds-folder[data-did="bts"]           .ds-folder-body { background: linear-gradient(160deg, #c4295a, #8b1a3a); }
 
 /* ========================
    Switch

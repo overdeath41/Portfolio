@@ -158,7 +158,70 @@ const PANELS = {
         </ul>
       </div>`
   },
-
+ 
+  bts: {
+    icon: '🏫',
+    color: '#8b1a3a',
+    title: 'Formation en cours',
+    sub: 'BTS SIO SISR — MEWO Metz',
+    html: `
+      <div class="ds-stag">Diplôme</div>
+      <div class="ds-entry">
+        <div class="ds-entry-hd">
+          <div class="ds-entry-title">BTS SIO — Option SISR</div>
+          <div class="ds-entry-date">Sept. 2025 → 2027</div>
+        </div>
+        <div class="ds-entry-co">🏫 MEWO Campus Métiers — Metz (Alternance)</div>
+        <div class="ds-entry-body">
+          <p>BTS Services Informatiques aux Organisations, option Solutions d'Infrastructure, Systèmes et Réseaux — Diplôme d'État Niveau 5, RNCP 40792.</p>
+        </div>
+      </div>
+ 
+      <div class="ds-stag">Blocs de compétences</div>
+      <div class="ds-entry">
+        <div class="ds-entry-hd">
+          <div class="ds-entry-title">Support et mise à disposition de services informatiques</div>
+        </div>
+        <div class="ds-entry-body">Assistance aux utilisateurs, gestion du patrimoine informatique, supervision et exploitation des services — bloc commun aux deux options SIO.</div>
+      </div>
+      <div class="ds-entry">
+        <div class="ds-entry-hd">
+          <div class="ds-entry-title">Administration des systèmes et des réseaux</div>
+        </div>
+        <div class="ds-entry-body">Conception, déploiement et maintenance d'infrastructures réseau et systèmes — cœur de la spécialité SISR.</div>
+      </div>
+      <div class="ds-entry">
+        <div class="ds-entry-hd">
+          <div class="ds-entry-title">Cybersécurité des services informatiques</div>
+        </div>
+        <div class="ds-entry-body">Bloc dédié depuis la réforme du référentiel (2025) — protection des infrastructures, gestion des risques et des incidents de sécurité.</div>
+      </div>
+ 
+      <div class="ds-stag">Organisation</div>
+      <div class="ds-entry-body">
+        <ul>
+          <li>Formation en alternance sur 2 ans, entre l'entreprise (Continental Automotive) et le centre de formation</li>
+          <li>Ateliers de professionnalisation autour de projets concrets en groupe</li>
+          <li>Épreuves communes aux deux options + épreuve de spécialité SISR</li>
+        </ul>
+      </div>`
+  },
+ 
+  documentation: {
+    icon: '🗂️',
+    color: '#1a6b6b',
+    title: 'Documentation',
+    sub: 'procédures & comptes rendus techniques',
+    html: `
+      <div class="ds-stag">Procédures &amp; documentation technique</div>
+      <div class="ds-entry-body" style="margin-bottom:18px">
+        <p>Documents rédigés au fil de l'alternance — procédures d'installation, configurations types, comptes rendus d'intervention. Liste générée automatiquement depuis le dépôt GitHub : déposer un PDF dans le dossier <code>docs/</code> du repo suffit, pas de mise à jour manuelle du site nécessaire.</p>
+      </div>
+      <div id="ds-docs-list">
+        <div class="ds-doc-loading">Chargement des documents…</div>
+      </div>`
+  },
+ 
   contact: {
     icon: '📬',
     color: '#7a5a1a',
@@ -241,6 +304,72 @@ const PANELS = {
   }
 };
 
+// ========================
+// DOCUMENTATION — indexation automatique
+// Au lieu de maintenir une liste à la main, on interroge
+// l'API GitHub (publique, sans clé) pour lister le contenu
+// du dossier docs/ du dépôt. Dépose un PDF dans ce dossier,
+// push, et il apparaît ici au prochain chargement de la page.
+// ⚠️ Vérifie ces 3 valeurs si tu changes de dépôt/dossier :
+// ========================
+const DOCS_OWNER = 'overdeath41';
+const DOCS_REPO  = 'Portfolio';
+const DOCS_PATH  = 'docs';
+ 
+async function loadDocsList() {
+  const listEl = document.getElementById('ds-docs-list');
+  if (!listEl) return;
+  listEl.innerHTML = '<div class="ds-doc-loading">Chargement des documents…</div>';
+ 
+  try {
+    const apiUrl = `https://api.github.com/repos/${DOCS_OWNER}/${DOCS_REPO}/contents/${DOCS_PATH}`;
+    const res = await fetch(apiUrl);
+    if (!res.ok) throw new Error('Réponse API invalide (' + res.status + ')');
+    const files = await res.json();
+ 
+    const pdfs = Array.isArray(files)
+      ? files.filter(function(f) { return f.type === 'file' && f.name.toLowerCase().endsWith('.pdf'); })
+      : [];
+ 
+    if (pdfs.length === 0) {
+      listEl.innerHTML = '<div class="ds-doc-empty">Aucun document pour le moment — reviens bientôt !</div>';
+      return;
+    }
+ 
+    listEl.innerHTML = '';
+    pdfs.forEach(function(file) {
+      const niceName = file.name.replace(/\.pdf$/i, '').replace(/[_-]+/g, ' ');
+      const item = document.createElement('div');
+      item.className = 'ds-doc-item';
+      item.innerHTML =
+        '<span class="ds-doc-icon">📄</span>' +
+        '<span class="ds-doc-name">' + niceName + '</span>' +
+        '<span class="ds-doc-open">Ouvrir →</span>';
+      item.addEventListener('click', function() {
+        openDocViewer(niceName, file.download_url);
+      });
+      listEl.appendChild(item);
+    });
+  } catch (err) {
+    listEl.innerHTML = '<div class="ds-doc-empty">Impossible de charger la liste des documents pour le moment.</div>';
+    console.warn('Erreur chargement documentation :', err);
+  }
+}
+ 
+function openDocViewer(name, url) {
+  const body = document.getElementById('ds-panel-body');
+  body.innerHTML =
+    '<button class="ds-doc-back" id="ds-doc-back">← Retour à la liste</button>' +
+    '<div class="ds-doc-viewer-title">' + name +
+      ' <a class="ds-doc-viewer-fallback" href="' + url + '" target="_blank" rel="noopener">(ouvrir dans un nouvel onglet)</a>' +
+    '</div>' +
+    '<div class="ds-doc-viewer"><iframe src="' + url + '" title="' + name + '"></iframe></div>';
+ 
+  document.getElementById('ds-doc-back').addEventListener('click', function() {
+    openPanel('documentation');
+  });
+}
+ 
 // ========================
 // LOGIQUE D'INTERACTION
 // ========================

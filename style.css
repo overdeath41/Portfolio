@@ -59,6 +59,7 @@ body::before {
 .ds-folders-row {
   display: flex;
   align-items: flex-end;
+  justify-content: center;
   gap: 14px;
   padding: 0 30px;
   height: 100px;
@@ -111,7 +112,7 @@ body::before {
 ======================== */
 .ds-folder {
   position: relative;
-  left: 100px;
+  flex-shrink: 0;
   cursor: pointer;
   transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), filter 0.2s;
   transform-origin: bottom center;
@@ -164,7 +165,10 @@ body::before {
 .ds-folder[data-did="bts"]           .ds-folder-body { background: linear-gradient(160deg, #c4295a, #8b1a3a); }
 
 /* ========================
-   Switch
+   SWITCH (image décorative)
+   Le conteneur garde une largeur en %, l'image remplit
+   ce conteneur (width:100%) au lieu d'un scale() fixe —
+   ainsi toute la chose reste proportionnelle à l'écran.
 ======================== */
 .ds-switch {
   position: fixed;
@@ -172,9 +176,14 @@ body::before {
   left: 75%; transform: translateX(-5%);
   width: 75%;
   z-index: 1;
+  pointer-events: none;
 }
 
-
+.ds-switch img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
 /* ========================
    BUREAU
@@ -297,7 +306,11 @@ body::before {
 .ds-tline:nth-child(5) { animation-delay: 1.9s; }
 .ds-tline:nth-child(6) { animation-delay: 2.3s; }
 .ds-tline.dim { color: rgba(110,231,160,0.45); }
-.ds-tline.acc { color: #f0d080; }
+/* .acc est révélée lettre par lettre par GSAP (script.js) :
+   on désactive le fondu CSS de la ligne pour éviter que les
+   deux animations (opacité de la ligne + opacité des lettres)
+   se cumulent et la rendent trop sombre au démarrage. */
+.ds-tline.acc { color: #f0d080; animation: none; opacity: 1; }
 
 .ds-cursor {
   display: inline-block;
@@ -832,4 +845,253 @@ body::before {
   opacity: 0.90;
   transform: translateY(-1px);
   box-shadow: 0 6px 24px rgba(200,112,48,0.45);
+}
+
+/* ========================
+   DOCUMENTATION — liste indexée
+   automatiquement depuis le dépôt GitHub
+   + lecteur PDF intégré (iframe, pas de
+   nouvelle page/onglet)
+======================== */
+.ds-doc-loading,
+.ds-doc-empty {
+  font-size: 12px;
+  color: #907860;
+  text-align: center;
+  padding: 30px 10px;
+  line-height: 1.6;
+}
+
+.ds-doc-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ds-doc-item:hover {
+  border-color: rgba(240,208,128,0.35);
+  background: rgba(240,208,128,0.07);
+}
+
+.ds-doc-icon { font-size: 16px; flex-shrink: 0; }
+
+.ds-doc-name {
+  flex: 1;
+  font-size: 12px;
+  color: #e8dcc8;
+  text-transform: capitalize;
+}
+
+.ds-doc-open {
+  font-size: 10px;
+  color: #907860;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.ds-doc-item:hover .ds-doc-open { color: #f0d080; }
+
+/* Panel élargi quand un PDF est affiché, pour lui laisser plus
+   d'espace que les panels de texte classiques (700px) */
+.ds-panel.doc-mode { width: min(980px, 94vw); }
+
+.ds-doc-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.ds-doc-back {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: #d8c8ae;
+  font-family: 'Syne', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ds-doc-back:hover {
+  border-color: rgba(240,208,128,0.45);
+  color: #f0d080;
+  background: rgba(240,208,128,0.08);
+  transform: translateX(-2px);
+}
+
+.ds-doc-viewer-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px; font-weight: 700;
+  color: #f0e8d0;
+  margin-bottom: 14px;
+  text-transform: capitalize;
+}
+
+.ds-doc-viewer-fallback {
+  -webkit-appearance: none;
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #d88040;
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(216,128,64,0.35);
+  background: rgba(216,128,64,0.08);
+  transition: all 0.15s;
+}
+
+.ds-doc-viewer-fallback:hover {
+  border-color: rgba(240,208,128,0.55);
+  color: #f0d080;
+  background: rgba(240,208,128,0.14);
+  transform: translateY(-1px);
+}
+
+.ds-doc-viewer {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  height: 75vh;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: #2a2a2a;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+}
+
+.ds-doc-viewer iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #fff;
+}
+
+.ds-doc-viewer .ds-doc-loading,
+.ds-doc-viewer .ds-doc-empty {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ════════════════════════════════════════════════════════
+   RESPONSIVE — TABLETTE / GRAND MOBILE
+════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .ds-wall-shelf { width: 90%; top: 5%; }
+
+  .ds-folders-row { gap: 10px; padding: 0 16px; height: 90px; }
+
+  .ds-folder-body { width: 54px; height: 68px; }
+  .ds-folder-body::before { width: 28px; height: 11px; top: -9px; }
+  .ds-folder-label { font-size: 7px; height: 48px; }
+
+  .ds-switch { width: 40%; }
+
+  .ds-desk { width: 90%; bottom: 26%; }
+  .ds-desk-surface { transform: scale(0.72); transform-origin: bottom center; }
+
+  .ds-chair {
+    transform: translateX(-50%) translateX(25px) scale(0.82);
+    transform-origin: bottom center;
+  }
+
+  .ds-panel { width: 92vw; }
+  .ds-panel.doc-mode { width: 94vw; }
+  .ds-panel-header { padding: 16px 18px 14px; gap: 10px; }
+  .ds-panel-icon { width: 32px; height: 32px; font-size: 16px; }
+  .ds-panel-title { font-size: 16px; }
+  .ds-panel-body { padding: 18px; }
+
+  .ds-doc-viewer { height: 65vh; }
+}
+
+/* ════════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE
+   - dossiers réduits + scroll horizontal en filet de sécurité
+   - cluster du bureau et chaise réduits via transform: scale()
+     pour garder toutes les proportions internes intactes
+   - panel et grille de compétences adaptés à l'écran étroit
+════════════════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  .ds-wall-shelf { width: 94%; top: 4%; }
+
+  .ds-folders-row {
+    gap: 8px;
+    padding: 0 10px;
+    height: 78px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .ds-folders-row::-webkit-scrollbar { display: none; }
+
+  .ds-folder-body { width: 46px; height: 58px; }
+  .ds-folder-body::before { width: 24px; height: 10px; top: -8px; }
+  .ds-folder-label { font-size: 6.5px; height: 40px; }
+
+  .ds-switch { width: 50%; }
+
+  .ds-desk { width: 94%; bottom: 22%; }
+  .ds-desk-surface { transform: scale(0.55); transform-origin: bottom center; }
+
+  .ds-chair {
+    transform: translateX(-50%) translateX(20px) scale(0.6);
+    transform-origin: bottom center;
+  }
+
+  .ds-hint {
+    font-size: 9px;
+    bottom: 10px;
+    padding: 0 16px;
+    text-align: center;
+    white-space: normal;
+  }
+
+  .ds-panel { width: 96vw; max-height: 88vh; border-radius: 12px; }
+  .ds-panel.doc-mode { width: 96vw; }
+  .ds-panel-header { padding: 14px 16px 12px; gap: 8px; }
+  .ds-panel-icon { width: 30px; height: 30px; font-size: 15px; border-radius: 7px; }
+  .ds-panel-title { font-size: 15px; }
+  .ds-panel-sub { font-size: 10px; }
+  .ds-panel-body { padding: 16px; font-size: 11px; }
+
+  .ds-skills-grid { grid-template-columns: 1fr; }
+  .ds-cv-info { gap: 12px; }
+  .ds-cv-avatar { width: 56px; height: 56px; font-size: 17px; }
+  .ds-cv-name { font-size: 18px; }
+  .ds-entry-title { font-size: 13px; }
+
+  .ds-doc-toolbar { flex-wrap: wrap; gap: 8px; }
+  .ds-doc-back, .ds-doc-viewer-fallback { font-size: 10px; padding: 7px 11px; }
+  .ds-doc-viewer { height: 62vh; }
+  .ds-doc-name { font-size: 11px; }
 }

@@ -158,7 +158,7 @@ const PANELS = {
         </ul>
       </div>`
   },
- 
+
   bts: {
     icon: '🏫',
     color: '#8b1a3a',
@@ -176,7 +176,7 @@ const PANELS = {
           <p>BTS Services Informatiques aux Organisations, option Solutions d'Infrastructure, Systèmes et Réseaux — Diplôme d'État Niveau 5, RNCP 40792.</p>
         </div>
       </div>
- 
+
       <div class="ds-stag">Blocs de compétences</div>
       <div class="ds-entry">
         <div class="ds-entry-hd">
@@ -196,7 +196,7 @@ const PANELS = {
         </div>
         <div class="ds-entry-body">Bloc dédié depuis la réforme du référentiel (2025) — protection des infrastructures, gestion des risques et des incidents de sécurité.</div>
       </div>
- 
+
       <div class="ds-stag">Organisation</div>
       <div class="ds-entry-body">
         <ul>
@@ -206,7 +206,7 @@ const PANELS = {
         </ul>
       </div>`
   },
- 
+
   documentation: {
     icon: '🗂️',
     color: '#1a6b6b',
@@ -221,7 +221,7 @@ const PANELS = {
         <div class="ds-doc-loading">Chargement des documents…</div>
       </div>`
   },
- 
+
   contact: {
     icon: '📬',
     color: '#7a5a1a',
@@ -315,27 +315,27 @@ const PANELS = {
 const DOCS_OWNER = 'overdeath41';
 const DOCS_REPO  = 'Portfolio';
 const DOCS_PATH  = 'docs';
- 
+
 async function loadDocsList() {
   const listEl = document.getElementById('ds-docs-list');
   if (!listEl) return;
   listEl.innerHTML = '<div class="ds-doc-loading">Chargement des documents…</div>';
- 
+
   try {
     const apiUrl = `https://api.github.com/repos/${DOCS_OWNER}/${DOCS_REPO}/contents/${DOCS_PATH}`;
     const res = await fetch(apiUrl);
     if (!res.ok) throw new Error('Réponse API invalide (' + res.status + ')');
     const files = await res.json();
- 
+
     const pdfs = Array.isArray(files)
       ? files.filter(function(f) { return f.type === 'file' && f.name.toLowerCase().endsWith('.pdf'); })
       : [];
- 
+
     if (pdfs.length === 0) {
       listEl.innerHTML = '<div class="ds-doc-empty">Aucun document pour le moment — reviens bientôt !</div>';
       return;
     }
- 
+
     listEl.innerHTML = '';
     pdfs.forEach(function(file) {
       const niceName = file.name.replace(/\.pdf$/i, '').replace(/[_-]+/g, ' ');
@@ -355,21 +355,59 @@ async function loadDocsList() {
     console.warn('Erreur chargement documentation :', err);
   }
 }
- 
-function openDocViewer(name, url) {
+
+// Garde une référence à la dernière URL blob créée, pour la libérer
+// proprement (éviter une fuite mémoire) quand on ouvre un autre document.
+let _currentDocBlobUrl = null;
+
+async function openDocViewer(name, url) {
   const body = document.getElementById('ds-panel-body');
+
+  // Libère le blob précédent s'il y en avait un
+  if (_currentDocBlobUrl) {
+    URL.revokeObjectURL(_currentDocBlobUrl);
+    _currentDocBlobUrl = null;
+  }
+
   body.innerHTML =
     '<button class="ds-doc-back" id="ds-doc-back">← Retour à la liste</button>' +
     '<div class="ds-doc-viewer-title">' + name +
       ' <a class="ds-doc-viewer-fallback" href="' + url + '" target="_blank" rel="noopener">(ouvrir dans un nouvel onglet)</a>' +
     '</div>' +
-    '<div class="ds-doc-viewer"><iframe src="' + url + '" title="' + name + '"></iframe></div>';
- 
+    '<div class="ds-doc-viewer"><div class="ds-doc-loading">Chargement du PDF…</div></div>';
+
   document.getElementById('ds-doc-back').addEventListener('click', function() {
+    if (_currentDocBlobUrl) { URL.revokeObjectURL(_currentDocBlobUrl); _currentDocBlobUrl = null; }
     openPanel('documentation');
   });
+
+  // raw.githubusercontent.com renvoie l'en-tête "X-Frame-Options: deny",
+  // qui interdit catégoriquement d'afficher le PDF dans une <iframe>
+  // pointant directement vers cette URL — le navigateur refuse, écran vide.
+  // Contournement : on télécharge le fichier nous-mêmes via fetch() (non
+  // concerné par X-Frame-Options, seul l'affichage en iframe l'est), puis
+  // on le transforme en Blob local affiché via une URL blob:, qui n'est
+  // plus soumise à la restriction de GitHub.
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const buffer = await res.arrayBuffer();
+    const blob = new Blob([buffer], { type: 'application/pdf' });
+    _currentDocBlobUrl = URL.createObjectURL(blob);
+
+    const viewer = body.querySelector('.ds-doc-viewer');
+    if (viewer) {
+      viewer.innerHTML = '<iframe src="' + _currentDocBlobUrl + '" title="' + name + '"></iframe>';
+    }
+  } catch (err) {
+    const viewer = body.querySelector('.ds-doc-viewer');
+    if (viewer) {
+      viewer.innerHTML = '<div class="ds-doc-empty">Impossible d\'afficher l\'aperçu. Utilise le lien "ouvrir dans un nouvel onglet" ci-dessus.</div>';
+    }
+    console.warn('Erreur chargement du PDF :', err);
+  }
 }
- 
+
 // ========================
 // LOGIQUE D'INTERACTION
 // ========================
@@ -383,6 +421,8 @@ function openPanel(id) {
   document.getElementById('ds-panel-sub').textContent = d.sub;
   document.getElementById('ds-panel-body').innerHTML = d.html;
   document.getElementById('ds-panel-overlay').classList.add('active');
+
+  if (id === 'documentation') loadDocsList();
 
   // Attacher les clics sur les onglets une fois le HTML injecté
   document.querySelectorAll('#ds-panel-body .ds-tab').forEach(function(tab) {
@@ -399,6 +439,7 @@ function openPanel(id) {
 
 function closePanel() {
   document.getElementById('ds-panel-overlay').classList.remove('active');
+  if (_currentDocBlobUrl) { URL.revokeObjectURL(_currentDocBlobUrl); _currentDocBlobUrl = null; }
 }
 
 // ========================
@@ -429,5 +470,30 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('ds-panel-overlay').addEventListener('click', function(e) {
     if (e.target === this) closePanel();
   });
+
+  // ========================
+  // ANIMATION TERMINAL — GSAP SplitText
+  // Révèle "Luc Thumser" lettre par lettre avec un effet
+  // de flicker, comme si le terminal le tapait en live.
+  // Protégé par un if : si jsDelivr est bloqué/indisponible,
+  // le reste du site (dossiers, panels, formulaire) continue
+  // de fonctionner normalement, seule cette animation est ignorée.
+  // ========================
+  if (window.gsap && window.SplitText) {
+    gsap.registerPlugin(SplitText);
+    const split = SplitText.create(".ds-tline.acc", { type: "chars" });
+
+    // delay: 0.7s pour rester synchro avec le reste du boot du terminal
+    // (la ligne "$ whoami" juste au-dessus apparaît elle aussi à 0.7s)
+    const tl = gsap.timeline({ delay: 0.7 });
+    split.chars.forEach((ch, i) => {
+      tl.set(ch, { opacity: 0 })
+        .to(ch, { opacity: 1, duration: 0.05 }, i * 0.15)
+        .to(ch, { opacity: 0.3, duration: 0.03 }, i * 0.15 + 0.05)
+        .to(ch, { opacity: 1, textShadow: "0 0 10px #00FF66", duration: 0.1 }, i * 0.15 + 0.08);
+    });
+  } else {
+    console.warn('GSAP / SplitText non chargé : animation du terminal désactivée.');
+  }
 
 });

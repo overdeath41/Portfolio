@@ -362,6 +362,7 @@ let _currentDocBlobUrl = null;
 
 async function openDocViewer(name, url) {
   const body = document.getElementById('ds-panel-body');
+  const panel = document.querySelector('.ds-panel');
 
   // Libère le blob précédent s'il y en avait un
   if (_currentDocBlobUrl) {
@@ -369,11 +370,15 @@ async function openDocViewer(name, url) {
     _currentDocBlobUrl = null;
   }
 
+  // Le panel s'élargit en mode lecture pour laisser plus de place au PDF
+  if (panel) panel.classList.add('doc-mode');
+
   body.innerHTML =
-    '<button class="ds-doc-back" id="ds-doc-back">← Retour à la liste</button>' +
-    '<div class="ds-doc-viewer-title">' + name +
-      ' <a class="ds-doc-viewer-fallback" href="' + url + '" target="_blank" rel="noopener">(ouvrir dans un nouvel onglet)</a>' +
+    '<div class="ds-doc-toolbar">' +
+      '<button class="ds-doc-back" id="ds-doc-back">‹ Retour à la liste</button>' +
+      '<a class="ds-doc-viewer-fallback" href="' + url + '" target="_blank" rel="noopener">↗ Nouvel onglet</a>' +
     '</div>' +
+    '<div class="ds-doc-viewer-title">' + name + '</div>' +
     '<div class="ds-doc-viewer"><div class="ds-doc-loading">Chargement du PDF…</div></div>';
 
   document.getElementById('ds-doc-back').addEventListener('click', function() {
@@ -402,7 +407,7 @@ async function openDocViewer(name, url) {
   } catch (err) {
     const viewer = body.querySelector('.ds-doc-viewer');
     if (viewer) {
-      viewer.innerHTML = '<div class="ds-doc-empty">Impossible d\'afficher l\'aperçu. Utilise le lien "ouvrir dans un nouvel onglet" ci-dessus.</div>';
+      viewer.innerHTML = '<div class="ds-doc-empty">Impossible d\'afficher l\'aperçu. Utilise le lien "Nouvel onglet" ci-dessus.</div>';
     }
     console.warn('Erreur chargement du PDF :', err);
   }
@@ -415,6 +420,8 @@ async function openDocViewer(name, url) {
 function openPanel(id) {
   const d = PANELS[id];
   if (!d) return;
+  const panel = document.querySelector('.ds-panel');
+  if (panel) panel.classList.remove('doc-mode');
   document.getElementById('ds-panel-icon').textContent = d.icon;
   document.getElementById('ds-panel-icon').style.background = d.color + '22';
   document.getElementById('ds-panel-title').textContent = d.title;

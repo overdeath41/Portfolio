@@ -108,11 +108,9 @@ const PANELS = {
           <div class="ds-entry-title">Portfolio Web interactif</div>
           <div class="ds-entry-date">2025</div>
         </div>
-        <div class="ds-entry-body">
-          <ul>
-            <li>HTML/CSS/JS — scène bureau 2.5D interactive</li>
-            <li>Panels dynamiques, animations CSS</li>
-          </ul>
+        <div class="ds-entry-hd">
+          <div class="ds-entry-title">Homelab</div>
+          <div class="ds-entry-date">2026</div>
         </div>
       </div>`
   },
@@ -267,7 +265,7 @@ const PANELS = {
       </div>
       <div class="ds-tab-content active" id="ds-tab-res">
         <div class="ds-skills-grid">
-          <div class="ds-skill"><div class="ds-skill-name">Cisco Catalyst / IOS</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:72%"></div></div><div class="ds-skill-lv">Intermédiaire — terrain réel</div></div>
+          <div class="ds-skill"><div class="ds-skill-name">Cisco Catalyst / IOS</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:72%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
           <div class="ds-skill"><div class="ds-skill-name">VLAN / Trunking / STP</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:100%"></div></div><div class="ds-skill-lv">Avancé</div></div>
           <div class="ds-skill"><div class="ds-skill-name">OSPF / Routage statique</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
           <div class="ds-skill"><div class="ds-skill-name">ACL / Port-security</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>

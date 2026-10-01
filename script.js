@@ -248,9 +248,45 @@ const PANELS = {
           <textarea id="c-msg" name="message" rows="5" placeholder="Votre message..." required></textarea>
         </div>
         <button type="submit" class="ds-submit">Envoyer le message</button>
+        <p class="ds-form-note" style="font-size:11px;opacity:.7;margin:4px 0 0">Votre message est transmis par le service FormSubmit et sert uniquement à vous répondre. Détails dans les mentions légales.</p>
       </form>`
   },
+  
+  legal: {
+    icon: '⚖️',
+    color: '#8a8a8a',
+    title: 'Mentions légales',
+    sub: 'informations légales et données personnelles',
+    html: `
+      <div class="ds-stag">Éditeur du site</div>
+      <div class="ds-entry-body" style="margin-bottom:20px">
+        <p>Luc Thumser, particulier — site personnel non commercial.<br>
+        Contact : <a href="mailto:lucthumser04@gmail.com" style="color:#e8c97a">lucthumser04@gmail.com</a></p>
+      </div>
 
+      <div class="ds-stag">Hébergement</div>
+      <div class="ds-entry-body" style="margin-bottom:20px">
+        <p>Site auto-hébergé sur un serveur personnel de l'éditeur, situé en France.<br>
+        Diffusion et protection assurées par Cloudflare, Inc. — 101 Townsend St, San Francisco, CA 94107, États-Unis — cloudflare.com</p>
+      </div>
+
+      <div class="ds-stag">Données personnelles</div>
+      <div class="ds-entry-body" style="margin-bottom:20px">
+        <p>Ce site ne dépose aucun cookie et n'utilise aucun outil de mesure d'audience.</p>
+        <p>Le formulaire de contact transmet votre nom, votre e-mail et votre message par le service FormSubmit (formsubmit.co).
+        Ces informations servent uniquement à vous répondre et ne sont ni cédées ni utilisées à d'autres fins.</p>
+        <p>Pour afficher la liste des documents, votre navigateur interroge l'API de GitHub ; les polices de caractères sont chargées depuis Google Fonts. Ces services reçoivent votre adresse IP.</p>
+        <p>Conformément au RGPD, vous pouvez demander l'accès à vos données ou leur suppression en écrivant à l'adresse ci-dessus,
+        et introduire une réclamation auprès de la CNIL (cnil.fr).</p>
+      </div>
+
+      <div class="ds-stag">Propriété intellectuelle</div>
+      <div class="ds-entry-body">
+        <p>Les textes, le design et les documents de ce site sont la propriété de Luc Thumser, sauf mention contraire.
+        Les marques et visuels de produits cités (Cisco, VMware, Microsoft…) appartiennent à leurs propriétaires respectifs.</p>
+      </div>`
+  },
+  
   computer: {
     icon: '💻',
     color: '#4ade80',
@@ -465,6 +501,14 @@ document.addEventListener('DOMContentLoaded', function() {
   if (monitor) {
     monitor.addEventListener('click', function() {
       openPanel(monitor.getAttribute('data-did'));
+    });
+  }
+  
+    // Lien « Mentions légales »
+  var legalLink = document.querySelector('.ds-legal-link[data-did]');
+  if (legalLink) {
+    legalLink.addEventListener('click', function() {
+      openPanel(legalLink.getAttribute('data-did'));
     });
   }
 

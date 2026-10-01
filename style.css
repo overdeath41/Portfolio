@@ -1095,3 +1095,15 @@ body::before {
   .ds-doc-viewer { height: 62vh; }
   .ds-doc-name { font-size: 11px; }
 }
+/* ========================
+   LIEN MENTIONS LÉGALES
+   ======================== */
+.ds-legal-link {
+  position: fixed; bottom: 14px; right: 18px; z-index: 3;
+  background: none; border: 0; padding: 4px 6px; cursor: pointer;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.04em;
+  color: rgba(232,201,122,0.55);
+  text-decoration: underline; text-underline-offset: 3px;
+}
+.ds-legal-link:hover, .ds-legal-link:focus-visible { color: rgba(232,201,122,0.95); }
+@media (max-width: 700px) { .ds-legal-link { bottom: 40px; } }

@@ -24,7 +24,8 @@ const PANELS = {
       </div>
       <div class="ds-stag">Profil</div>
       <div class="ds-entry-body" style="margin-bottom:20px">
-        <p>Étudiant en BTS SIO SISR en alternance chez Continental Automotive, spécialisé en administration réseau, virtualisation et support IT en environnement industriel.</p>
+        <p>Étudiant en BTS SIO SISR en alternance chez Continental AG, spécialisé en administration réseau, 
+        gestion d'infrastructure et support IT en environnement industriel.</p>
       </div>
       <div class="ds-stag">Contact</div>
       <div class="ds-clinks">
@@ -50,9 +51,9 @@ const PANELS = {
         <div class="ds-entry-co">🏭 Continental Automotive — Sarreguemines</div>
         <div class="ds-entry-body">
           <ul>
-            <li>50+ switches Cisco Catalyst 9200L — rack, fibre optique, cuivre</li>
-            <li>VLAN, SSH, port-security, DHCP snooping</li>
-            <li>Diagnostic incidents réseau, Dépannage, documentation</li>
+            <li>Configuration et déploiement d'équipements réseau - Switches, Access Points, Connexions fibres et cuivres</li>
+            <li>Support IT en environnement industriel - Contrainte de production, efficacité et rigeur</li>
+            <li>Diagnostic incidents réseau - Dépannage, Correction, documentation</li>
           </ul>
         </div>
       </div>
@@ -60,7 +61,7 @@ const PANELS = {
       <div class="ds-entry">
         <div class="ds-entry-hd">
           <div class="ds-entry-title">Agent de Production Industrielle</div>
-          <div class="ds-entry-date">Nov. 2023 → Août 2025</div>
+          <div class="ds-entry-date">Nov. 2023 → Mars 2025</div>
         </div>
         <div class="ds-entry-co">⚙️ ZF Friedrichshafen — Sarrebruck, Allemagne</div>
         <div class="ds-entry-body">
@@ -86,8 +87,9 @@ const PANELS = {
         </div>
         <div class="ds-entry-body">
           <ul>
-            <li>Packet Tracer &amp; VLAN, OSPF, ACL, HSRP </li>
+            <li>Packet Tracer - VLAN, OSPF, ACL</li>
             <li>Scénarios de troubleshooting multi-sites</li>
+            <li>Router on a stick</li>
           </ul>
         </div>
       </div>
@@ -107,10 +109,22 @@ const PANELS = {
         <div class="ds-entry-hd">
           <div class="ds-entry-title">Portfolio Web interactif</div>
           <div class="ds-entry-date">2025</div>
+          <div class="ds-entry-body">
+          <ul>
+            <li>Création et déploiement en HA d'un portfolio résumant mon parcours et mes compétences/li>
+          </ul>
+        </div>
         </div>
         <div class="ds-entry-hd">
           <div class="ds-entry-title">Homelab</div>
           <div class="ds-entry-date">2026</div>
+            <div class="ds-entry-body">
+            <ul>
+              <li>Déploiement et maintien de services - Tunnel VPN, Dashboard de monitoring, Firewall</li>
+              <li>Création d'un dashboard de monitoring de mon infrastructure</li>
+              <li>Programmation sur carte Arduino (ESP32)</li>
+            </ul>
+          </div>
         </div>
       </div>`
   },
@@ -122,38 +136,30 @@ const PANELS = {
     sub: 'parcours académique & certifications',
     html: `
       <div class="ds-stag">Formation principale</div>
-      <div class="ds-entry">
-        <div class="ds-entry-hd">
-          <div class="ds-entry-title">BTS SIO — Option SISR</div>
-          <div class="ds-entry-date">Sept. 2025 → 2027</div>
+        <div class="ds-entry">
+          <div class="ds-entry-hd">
+            <div class="ds-entry-title">BTS SIO — Option SISR</div>
+            <div class="ds-entry-date">Sept. 2025 → 2027</div>
+          </div>
+          <div class="ds-entry-co">🏫 MEWO Campus Métiers — Metz (Alternance)</div>
+          <div class="ds-entry-body">Administration réseau, Infrastructure, Virtualisation, sécurité, support IT professionnel.</div>
         </div>
-        <div class="ds-entry-co">🏫 MEWO Campus Métiers — Metz (Alternance)</div>
-        <div class="ds-entry-body">Administration réseau, Infrastructure, Virtualisation, sécurité, support IT professionnel.</div>
-      </div>
-      <div class="ds-entry">
-        <div class="ds-entry-hd">
-          <div class="ds-entry-title">Bachelor of Science — Informatique</div>
-          <div class="ds-entry-date">2023 → 2025</div>
+        <div class="ds-entry">
+          <div class="ds-entry-hd">
+            <div class="ds-entry-title">Bachelor of Science — Informatique</div>
+            <div class="ds-entry-date">2023 → 2025</div>
+          </div>
+          <div class="ds-entry-co">🎓 Universität des Saarlandes — Saarbrücken</div>
+          <div class="ds-entry-body">2 ans — algorithmique, architecture, programmation.</div>
         </div>
-        <div class="ds-entry-co">🎓 Universität des Saarlandes — Saarbrücken</div>
-        <div class="ds-entry-body">2 ans — algorithmique, architecture, programmation.</div>
-      </div>
-      <div class="ds-entry">
-        <div class="ds-entry-hd">
-          <div class="ds-entry-title">Baccalauréat Général</div>
-          <div class="ds-entry-date">2023</div>
+        <div class="ds-entry">
+          <div class="ds-entry-hd">
+            <div class="ds-entry-title">Baccalauréat Général</div>
+            <div class="ds-entry-date">2023</div>
+          </div>
+          <div class="ds-entry-co">🏫 Lycée Henri Nominé — Sarreguemines</div>
+          <div class="ds-entry-body">Mathématiques &amp; Physique-Chimie.</div>
         </div>
-        <div class="ds-entry-co">🏫 Lycée Henri Nominé — Sarreguemines</div>
-        <div class="ds-entry-body">Mathématiques &amp; Physique-Chimie.</div>
-      </div>
-      <div class="ds-stag">Certifications visées</div>
-      <div class="ds-entry-body">
-        <ul>
-          <li>CLA — C Programming (cpp institute)</li>
-          <li>Python PCEP/PCAP (Python Institute)</li>
-          <li>CCNA — Cisco Certified Network Associate</li>
-          <li>AZ-900 — Microsoft Azure Fundamentals</li>
-        </ul>
       </div>`
   },
 
@@ -198,7 +204,7 @@ const PANELS = {
       <div class="ds-stag">Organisation</div>
       <div class="ds-entry-body">
         <ul>
-          <li>Formation en alternance sur 2 ans, entre l'entreprise (Continental Automotive) et le centre de formation</li>
+          <li>Formation en alternance sur 2 ans, entre l'entreprise (Continental AG) et le centre de formation</li>
           <li>Ateliers de professionnalisation autour de projets concrets en groupe</li>
           <li>Épreuves communes aux deux options + épreuve de spécialité SISR</li>
         </ul>
@@ -213,7 +219,7 @@ const PANELS = {
     html: `
       <div class="ds-stag">Procédures &amp; documentation technique</div>
       <div class="ds-entry-body" style="margin-bottom:18px">
-        <p>Documents rédigés au fil de l'alternance — procédures d'installation, configurations types, comptes rendus d'intervention. Liste générée automatiquement depuis le dépôt GitHub : déposer un PDF dans le dossier <code>docs/</code> du repo suffit, pas de mise à jour manuelle du site nécessaire.</p>
+        <p>Documents rédigés au fil de l'alternance — procédures d'installation, configurations types, comptes rendus d'intervention.</p>
       </div>
       <div id="ds-docs-list">
         <div class="ds-doc-loading">Chargement des documents…</div>

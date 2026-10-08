@@ -52,7 +52,7 @@ const PANELS = {
         <div class="ds-entry-body">
           <ul>
             <li>Configuration et déploiement d'équipements réseau - Switches, Access Points, Connexions fibres et cuivres</li>
-            <li>Support IT en environnement industriel - Contrainte de production, efficacité et rigeur</li>
+            <li>Support IT en environnement industriel - Contrainte de production, efficacité et rigueur</li>
             <li>Diagnostic incidents réseau - Dépannage, Correction, documentation</li>
           </ul>
         </div>

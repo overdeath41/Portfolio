@@ -306,39 +306,100 @@ const PANELS = {
         <div class="ds-tab" data-tab="tools">Outils</div>
       </div>
       <div class="ds-tab-content active" id="ds-tab-res">
-        <div class="ds-skills-grid">
-          <div class="ds-skill"><div class="ds-skill-name">Cisco Catalyst / IOS</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:72%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">VLAN / Trunking / STP</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:100%"></div></div><div class="ds-skill-lv">Avancé</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">OSPF / Routage statique</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">ACL / Port-security</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">DHCP / DNS</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:65%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">pfSense / Firewall</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:50%"></div></div><div class="ds-skill-lv">Débutant avancé</div></div>
+        <div class="ds-stag">Commutation</div>
+        <div class="ds-entry-body" style="margin-bottom:18px">
+          <ul>
+            <li>Configuration de VLAN, ports access / trunk 802.1Q et propagation VTP sur commutateurs Cisco</li>
+            <li>Agrégation de liens (Port-channel / EtherChannel)</li>
+            <li>Installation et raccordement de switchs et de points d'accès Wi-Fi, en fibre (SFP) et en cuivre</li>
+          </ul>
+        </div>
+        <div class="ds-stag">Routage</div>
+        <div class="ds-entry-body" style="margin-bottom:18px">
+          <ul>
+            <li>Conception de plans d'adressage VLSM, routage inter-VLAN (router-on-a-stick) et routes statiques</li>
+            <li>Routage dynamique OSPF (aires, coût, élection DR/BDR, tests de bascule) et RIPv2</li>
+          </ul>
+        </div>
+        <div class="ds-stag">Services &amp; sécurité</div>
+        <div class="ds-entry-body">
+          <ul>
+            <li>Mise en place de DHCP (pools, exclusions, relais) et de DNS (zones directes et inverses, enregistrements, redirecteurs)</li>
+            <li>Rédaction, placement et diagnostic d'ACL Cisco standard et étendues</li>
+            <li>Durcissement d'équipements Cisco : SSH v2, restriction des accès VTY, port-security, BPDU Guard</li>
+          </ul>
         </div>
       </div>
       <div class="ds-tab-content" id="ds-tab-sys">
-        <div class="ds-skills-grid">
-          <div class="ds-skill"><div class="ds-skill-name">Virtualisation</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">Windows Server</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:60%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">Active Directory</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:55%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">Linux</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:80%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">Snapshots / Migration VM</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">Support / Troubleshooting</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:90%"></div></div><div class="ds-skill-lv">Avancé</div></div>
+        <div class="ds-stag">Windows Server</div>
+        <div class="ds-entry-body" style="margin-bottom:18px">
+          <ul>
+            <li>Gestion d'Active Directory : unités d'organisation, comptes et groupes selon le modèle AGDLP, droits NTFS et de partage</li>
+          </ul>
+        </div>
+        <div class="ds-stag">Linux</div>
+        <div class="ds-entry-body" style="margin-bottom:18px">
+          <ul>
+            <li>Déploiement de services sur Ubuntu Server : Apache, NGINX, pile LAMP (GLPI, WordPress), partages Samba</li>
+            <li>Sécurisation d'un site en HTTPS : certificat X.509 généré avec OpenSSL, VirtualHost SSL</li>
+          </ul>
+        </div>
+        <div class="ds-stag">Virtualisation, stockage &amp; sauvegarde</div>
+        <div class="ds-entry-body" style="margin-bottom:18px">
+          <ul>
+            <li>Virtualisation sous VMware Workstation et VirtualBox : modes réseau, snapshots, disques virtuels, migration de VM</li>
+            <li>Sauvegarde et restauration avec Veeam Backup &amp; Replication (rétention, restauration bare-metal) et Clonezilla</li>
+            <li>Stockage TrueNAS : pool ZFS en miroir, datasets, partages SMB avec droits par groupe</li>
+          </ul>
+        </div>
+        <div class="ds-stag">Exploitation &amp; support</div>
+        <div class="ds-entry-body">
+          <ul>
+            <li>Diagnostic méthodique d'incidents réseau, couche par couche</li>
+            <li>Support utilisateur en environnement industriel : recueil du besoin, résolution, escalade</li>
+          </ul>
         </div>
       </div>
       <div class="ds-tab-content" id="ds-tab-dev">
-        <div class="ds-skills-grid">
-          <div class="ds-skill"><div class="ds-skill-name">Python</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">PowerShell</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">HTML / CSS / JS</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:90%"></div></div><div class="ds-skill-lv">Avancé</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">C++</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:50%"></div></div><div class="ds-skill-lv">Débutant avancé</div></div>
+        <div class="ds-stag">Scripting</div>
+        <div class="ds-entry-body" style="margin-bottom:18px">
+          <ul>
+            <li>Écriture de scripts Bash (variables, conditions, boucles)</li>
+            <li>Administration d'Active Directory en PowerShell (UO, comptes, groupes, ACL NTFS)</li>
+            <li>Écriture de scripts Python</li>
+          </ul>
+        </div>
+        <div class="ds-stag">Développement</div>
+        <div class="ds-entry-body">
+          <ul>
+            <li>Création et déploiement d'un site web statique en HTML, CSS et JavaScript</li>
+            <li>Programmation en C</li>
+            <li>Programmation de microcontrôleurs ESP32 (environnement Arduino)</li>
+          </ul>
         </div>
       </div>
       <div class="ds-tab-content" id="ds-tab-tools">
-        <div class="ds-skills-grid">
-          <div class="ds-skill"><div class="ds-skill-name">Packet Tracer</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Avancé</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">à remplir</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:0%"></div></div><div class="ds-skill-lv">à remplir</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">à remplir</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:0%"></div></div><div class="ds-skill-lv">à remplir</div></div>
-          <div class="ds-skill"><div class="ds-skill-name">Git / GitHub</div><div class="ds-skill-bar"><div class="ds-skill-fill" style="width:75%"></div></div><div class="ds-skill-lv">Intermédiaire</div></div>
+        <div class="ds-stag">Infrastructure &amp; sécurité</div>
+        <div class="ds-entry-body" style="margin-bottom:18px">
+          <ul>
+            <li>Configuration de pare-feu pfSense et OPNsense : règles de filtrage, NAT sortant, DHCP, journaux</li>
+            <li>Gestion DNS / DHCP / IPAM avec VitalQIP</li>
+            <li>Accès distant sécurisé avec Tailscale et publication de services via Cloudflare Tunnel</li>
+          </ul>
+        </div>
+        <div class="ds-stag">Gestion &amp; documentation</div>
+        <div class="ds-entry-body" style="margin-bottom:18px">
+          <ul>
+            <li>Gestion de parc et de tickets avec GLPI : installation, inventaire, catégories, priorités, suivis</li>
+            <li>Rédaction de documentation technique : procédures, plans d'adressage, nommage des équipements</li>
+          </ul>
+        </div>
+        <div class="ds-stag">Maquettage &amp; versionnement</div>
+        <div class="ds-entry-body">
+          <ul>
+            <li>Maquettage d'infrastructures multi-sites et de scénarios de dépannage sous Cisco Packet Tracer</li>
+            <li>Versionnement de code avec Git et publication sur GitHub</li>
+          </ul>
         </div>
       </div>`
   }

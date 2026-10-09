@@ -310,21 +310,21 @@ const PANELS = {
         <div class="ds-entry-body" style="margin-bottom:18px">
           <ul>
             <li>Configuration de VLAN, ports access / trunk 802.1Q et propagation VTP sur commutateurs Cisco</li>
-            <li>Agrégation de liens (Port-channel / EtherChannel)</li>
-            <li>Installation et raccordement de switchs et de points d'accès Wi-Fi, en fibre (SFP) et en cuivre</li>
+            <li>Agrégation de liens EtherChannel / Port-channel</li>
+            <li>Installation et raccordement de switchs et de points d'accès Wi-Fi, en fibre et en cuivre</li>
           </ul>
         </div>
         <div class="ds-stag">Routage</div>
         <div class="ds-entry-body" style="margin-bottom:18px">
           <ul>
-            <li>Conception de plans d'adressage VLSM, routage inter-VLAN (router-on-a-stick) et routes statiques</li>
-            <li>Routage dynamique OSPF (aires, coût, élection DR/BDR, tests de bascule) et RIPv2</li>
+            <li>Routage inter-VLAN et routes statiques sur routeurs Cisco</li>
+            <li>Routage dynamique OSPF et RIPv2, tests de convergence et de bascule</li>
           </ul>
         </div>
         <div class="ds-stag">Services &amp; sécurité</div>
         <div class="ds-entry-body">
           <ul>
-            <li>Mise en place de DHCP (pools, exclusions, relais) et de DNS (zones directes et inverses, enregistrements, redirecteurs)</li>
+            <li>Mise en place de services DHCP avec relais et de DNS avec zones directes et inverses</li>
             <li>Rédaction, placement et diagnostic d'ACL Cisco standard et étendues</li>
             <li>Durcissement d'équipements Cisco : SSH v2, restriction des accès VTY, port-security, BPDU Guard</li>
           </ul>
@@ -340,15 +340,15 @@ const PANELS = {
         <div class="ds-stag">Linux</div>
         <div class="ds-entry-body" style="margin-bottom:18px">
           <ul>
-            <li>Déploiement de services sur Ubuntu Server : Apache, NGINX, pile LAMP (GLPI, WordPress), partages Samba</li>
+            <li>Déploiement de services sur Ubuntu Server : Apache, NGINX, pile LAMP pour GLPI et WordPress, partages Samba</li>
             <li>Sécurisation d'un site en HTTPS : certificat X.509 généré avec OpenSSL, VirtualHost SSL</li>
           </ul>
         </div>
         <div class="ds-stag">Virtualisation, stockage &amp; sauvegarde</div>
         <div class="ds-entry-body" style="margin-bottom:18px">
           <ul>
-            <li>Virtualisation sous VMware Workstation et VirtualBox : modes réseau, snapshots, disques virtuels, migration de VM</li>
-            <li>Sauvegarde et restauration avec Veeam Backup &amp; Replication (rétention, restauration bare-metal) et Clonezilla</li>
+            <li>Virtualisation sous VMware ESXi, Workstation et VirtualBox : modes réseau, snapshots, disques virtuels, migration de VM</li>
+            <li>Sauvegarde et restauration bare-metal avec Veeam Backup &amp; Replication, images disque avec Clonezilla</li>
             <li>Stockage TrueNAS : pool ZFS en miroir, datasets, partages SMB avec droits par groupe</li>
           </ul>
         </div>
@@ -364,8 +364,8 @@ const PANELS = {
         <div class="ds-stag">Scripting</div>
         <div class="ds-entry-body" style="margin-bottom:18px">
           <ul>
-            <li>Écriture de scripts Bash (variables, conditions, boucles)</li>
-            <li>Administration d'Active Directory en PowerShell (UO, comptes, groupes, ACL NTFS)</li>
+            <li>Écriture de scripts Bash</li>
+            <li>Automatisation de la gestion Active Directory en PowerShell : comptes, groupes, droits NTFS</li>
             <li>Écriture de scripts Python</li>
           </ul>
         </div>
@@ -374,7 +374,7 @@ const PANELS = {
           <ul>
             <li>Création et déploiement d'un site web statique en HTML, CSS et JavaScript</li>
             <li>Programmation en C</li>
-            <li>Programmation de microcontrôleurs ESP32 (environnement Arduino)</li>
+            <li>Programmation de microcontrôleurs ESP32 sous Arduino</li>
           </ul>
         </div>
       </div>

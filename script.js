@@ -383,7 +383,7 @@ const PANELS = {
         <div class="ds-entry-body" style="margin-bottom:18px">
           <ul>
             <li>Configuration de pare-feu pfSense et OPNsense : règles de filtrage, NAT sortant, DHCP, journaux</li>
-            <li>Gestion DNS / DHCP / IPAM avec VitalQIP</li>
+            <li>Gestion DNS / DHCP </li>
             <li>Accès distant sécurisé avec Tailscale et publication de services via Cloudflare Tunnel</li>
           </ul>
         </div>

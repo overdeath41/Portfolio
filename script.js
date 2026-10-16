@@ -407,11 +407,6 @@ const PANELS = {
 
 // ========================
 // DOCUMENTATION — indexation automatique
-// Au lieu de maintenir une liste à la main, on interroge
-// l'API GitHub (publique, sans clé) pour lister le contenu
-// du dossier docs/ du dépôt. Dépose un PDF dans ce dossier,
-// push, et il apparaît ici au prochain chargement de la page.
-// ⚠️ Vérifie ces 3 valeurs si tu changes de dépôt/dossier :
 // ========================
 const DOCS_OWNER = 'overdeath41';
 const DOCS_REPO  = 'Portfolio';
@@ -487,13 +482,6 @@ async function openDocViewer(name, url) {
     openPanel('documentation');
   });
 
-  // raw.githubusercontent.com renvoie l'en-tête "X-Frame-Options: deny",
-  // qui interdit catégoriquement d'afficher le PDF dans une <iframe>
-  // pointant directement vers cette URL — le navigateur refuse, écran vide.
-  // Contournement : on télécharge le fichier nous-mêmes via fetch() (non
-  // concerné par X-Frame-Options, seul l'affichage en iframe l'est), puis
-  // on le transforme en Blob local affiché via une URL blob:, qui n'est
-  // plus soumise à la restriction de GitHub.
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -589,18 +577,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // ========================
   // ANIMATION TERMINAL — GSAP SplitText
-  // Révèle "Luc Thumser" lettre par lettre avec un effet
-  // de flicker, comme si le terminal le tapait en live.
-  // Protégé par un if : si jsDelivr est bloqué/indisponible,
-  // le reste du site (dossiers, panels, formulaire) continue
-  // de fonctionner normalement, seule cette animation est ignorée.
   // ========================
   if (window.gsap && window.SplitText) {
     gsap.registerPlugin(SplitText);
     const split = SplitText.create(".ds-tline.acc", { type: "chars" });
 
     // delay: 0.7s pour rester synchro avec le reste du boot du terminal
-    // (la ligne "$ whoami" juste au-dessus apparaît elle aussi à 0.7s)
     const tl = gsap.timeline({ delay: 0.7 });
     split.chars.forEach((ch, i) => {
       tl.set(ch, { opacity: 0 })

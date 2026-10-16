@@ -44,7 +44,6 @@ body::before {
 
 /* ========================
    ÉTAGÈRE MURALE
-   Les dossiers sont au-dessus, la planche en dessous
 ======================== */
 .ds-wall-shelf {
   position: fixed;
@@ -54,8 +53,6 @@ body::before {
   z-index: 1;
 }
 
-/* La planche vient APRÈS les dossiers dans le flux,
-   elle apparaît donc visuellement en dessous d'eux */
 .ds-folders-row {
   display: flex;
   align-items: flex-end;
@@ -166,9 +163,6 @@ body::before {
 
 /* ========================
    SWITCH (image décorative)
-   Le conteneur garde une largeur en %, l'image remplit
-   ce conteneur (width:100%) au lieu d'un scale() fixe —
-   ainsi toute la chose reste proportionnelle à l'écran.
 ======================== */
 .ds-switch {
   position: fixed;
@@ -306,10 +300,6 @@ body::before {
 .ds-tline:nth-child(5) { animation-delay: 1.9s; }
 .ds-tline:nth-child(6) { animation-delay: 2.3s; }
 .ds-tline.dim { color: rgba(110,231,160,0.45); }
-/* .acc est révélée lettre par lettre par GSAP (script.js) :
-   on désactive le fondu CSS de la ligne pour éviter que les
-   deux animations (opacité de la ligne + opacité des lettres)
-   se cumulent et la rendent trop sombre au démarrage. */
 .ds-tline.acc { color: #f0d080; animation: none; opacity: 1; }
 
 .ds-cursor {
@@ -848,10 +838,7 @@ body::before {
 }
 
 /* ========================
-   DOCUMENTATION — liste indexée
-   automatiquement depuis le dépôt GitHub
-   + lecteur PDF intégré (iframe, pas de
-   nouvelle page/onglet)
+   DOCUMENTATION 
 ======================== */
 .ds-doc-loading,
 .ds-doc-empty {

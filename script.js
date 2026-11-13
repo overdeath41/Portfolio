@@ -19,7 +19,7 @@ const PANELS = {
             <span class="ds-cv-badge">🚗 Permis B</span>
             <span class="ds-cv-badge"> FR ·  DE B2+ ·  EN B2+</span>
           </div>
-          <a class="ds-dl-btn" href="CV_Luc_Thumser.pdf" download>⬇ Télécharger le CV (PDF)</a>
+          <a class="ds-dl-btn" href="CV_Luc_Thumser_v2.pdf" download>⬇ Télécharger le CV (PDF)</a>
         </div>
       </div>
       <div class="ds-stag">Profil</div>
